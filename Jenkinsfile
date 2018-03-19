@@ -28,7 +28,8 @@ node {
     }   
     stage('report') {
         junit 'target/surefire-reports/TEST-*.xml',
-        findbugs pattern: 'target/findbugsXml.xml'
-            
+        findbugs pattern: 'target/findbugsXml.xml',
+        checkstyle pattern: 'target/checkstyle-result.xml',
+        pmd pattern: 'target/pmd.xml'    
     }
 }
