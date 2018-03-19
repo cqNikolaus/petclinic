@@ -25,7 +25,9 @@ node {
                         unstash "workspace"
                         sh "mvn findbugs:findbugs" 
                         sh "mvn checkstyle:checkstyle"
-                        sh "mvn pmd:pmd"},
+                        sh "mvn pmd:pmd"
+                    }
+                },        
                 docu: { 
                     node('docu') {
                         unstash "workspace"
