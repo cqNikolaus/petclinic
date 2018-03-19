@@ -19,7 +19,8 @@ node {
         withMaven(maven: 'MVN.3.5.2') {
             parallel (
                 test: { sh "mvn test" },
-                analyse: { sh "mvn findbugs:findbugs" }
+                analyse: { sh "mvn findbugs:findbugs" },
+                docu: { sh "mvn javadoc:javadoc -Dmaven.javadoc.failOnError=false" }
             )
         }
     }   
