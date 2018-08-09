@@ -1,23 +1,26 @@
 #!groovy
 
+def mvnVersion = 'MVN_354'
+
 node {
     stage('Checkout') {
         node('build') {
             deleteDir()
             checkout scm
-            withMaven(maven: 'MVN.3.5.2') {
+            withMaven(maven: mvnVersion) {
                 sh "mvn clean install -Dmaven.test.skip=true"
             }
             stash name: "workspace"
         }
     }
     stage('Test & Analyse') {
-        withMaven(maven: 'MVN.3.5.2') {
+        withMaven(maven: mvnVersion) {
             parallel (
                 test: { 
                     node('test') {
                         unstash "workspace"
                         sh "mvn test" 
+                        stash name: "test"
                     }
                 },
                 analyse: { 
@@ -26,23 +29,29 @@ node {
                         sh "mvn findbugs:findbugs" 
                         sh "mvn checkstyle:checkstyle"
                         sh "mvn pmd:pmd"
+                        stash name: "analyse"
                     }
                 },        
                 docu: { 
                     node('docu') {
                         unstash "workspace"
-                        sh "mvn javadoc:javadoc -Dmaven.javadoc.failOnError=false" 
+                        sh "mvn javadoc:javadoc -Dmaven.javadoc.failOnError=false"
+                        stash name: "docu"
                     }
                 }
             )
         }
     }
-/*                
+    
     stage('report') {
+        unstash "test"
+        unstash "analyse"
+        unstash "docu"
+    
         junit 'target/surefire-reports/TEST-*.xml'
         findbugs pattern: 'target/findbugsXml.xml'
         checkstyle pattern: 'target/checkstyle-result.xml'
         pmd pattern: 'target/pmd.xml'    
     }
-*/    
+    
 }
