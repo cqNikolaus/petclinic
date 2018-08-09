@@ -17,18 +17,17 @@ node {
             sh "mvn clean install -Dmaven.test.skip=true"
         }
     }   
-    stage('Test') {
+    stage('Test & Analyse') {
         withMaven(maven: mvnVersion) {
-                sh "mvn test" 
+            parallel (
+                test: { sh "mvn test" },
+                analyse: { sh "mvn findbugs:findbugs" 
+                           sh "mvn checkstyle:checkstyle"
+                           sh "mvn pmd:pmd"},
+                docu: { sh "mvn javadoc:javadoc -Dmaven.javadoc.failOnError=false" }
+            )
         }
     }   
-    stage('Analyse') {
-        withMaven(maven: mvnVersion) {
-            sh "mvn findbugs:findbugs" 
-            sh "mvn checkstyle:checkstyle"
-            sh "mvn pmd:pmd"}
-        }
-    }
     stage('report') {
         junit 'target/surefire-reports/TEST-*.xml'
         findbugs pattern: 'target/findbugsXml.xml'
