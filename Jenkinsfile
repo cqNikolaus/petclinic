@@ -1,5 +1,7 @@
 #!groovy
 
+dev mvnVersion = 'MVN_354'
+
 node {
     stage('Init') {
         deleteDir()
@@ -11,12 +13,12 @@ node {
         checkout scm
     }
     stage('Build') {
-        withMaven(maven: 'MVN.3.5.2') {
+        withMaven(maven: mvnVersion) {
             sh "mvn clean install -Dmaven.test.skip=true"
         }
     }   
     stage('Test & Analyse') {
-        withMaven(maven: 'MVN.3.5.2') {
+        withMaven(maven: mvnVersion) {
             parallel (
                 test: { sh "mvn test" },
                 analyse: { sh "mvn findbugs:findbugs" 
