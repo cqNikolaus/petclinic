@@ -17,33 +17,34 @@ node {
             stash name: "workspace"
     }
     stage('Test & Analyse') {
-        withMaven(maven: mvnVersion) {
             parallel (
                 test: { 
                     node('test') {
+                      withMaven(maven: mvnVersion) {
                         unstash "workspace"
                         sh "mvn test" 
                         stash name: "test"
-                    }
+                    }}
                 },
                 analyse: { 
                     node('analyse') {
+                      withMaven(maven: mvnVersion) {
                         unstash "workspace"
                         sh "mvn findbugs:findbugs" 
                         sh "mvn checkstyle:checkstyle"
                         sh "mvn pmd:pmd"
                         stash name: "analyse"
-                    }
+                    }}
                 },        
                 docu: { 
                     node('docu') {
+                      withMaven(maven: mvnVersion) {
                         unstash "workspace"
                         sh "mvn javadoc:javadoc -Dmaven.javadoc.failOnError=false"
                         stash name: "docu"
-                    }
+                    }}
                 }
             )
-        }
     }
     
     stage('report') {
