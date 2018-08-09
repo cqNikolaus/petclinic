@@ -4,14 +4,17 @@ def mvnVersion = 'MVN_354'
 
 node {
     stage('Checkout') {
-        node() {
             deleteDir()
             checkout scm
             withMaven(maven: mvnVersion) {
                 sh "mvn clean install -Dmaven.test.skip=true"
             }
+    }
+    stage('Build') {
+            withMaven(maven: mvnVersion) {
+                sh "mvn clean install -Dmaven.test.skip=true"
+            }
             stash name: "workspace"
-        }
     }
     stage('Test & Analyse') {
         withMaven(maven: mvnVersion) {
