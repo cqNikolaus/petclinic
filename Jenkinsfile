@@ -1,6 +1,6 @@
 #!groovy
 
-dev mvnVersion = 'MVN_354'
+def mvnVersion = 'MVN_354'
 
 node {
     stage('Init') {
