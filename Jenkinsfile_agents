@@ -4,7 +4,7 @@ def mvnVersion = 'MVN_354'
 
 node {
     stage('Checkout') {
-        node('build') {
+        node() {
             deleteDir()
             checkout scm
             withMaven(maven: mvnVersion) {
