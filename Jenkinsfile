@@ -26,7 +26,7 @@ node {
         withMaven(maven: mvnVersion) {
             sh "mvn findbugs:findbugs" 
             sh "mvn checkstyle:checkstyle"
-            sh "mvn pmd:pmd"}
+            sh "mvn pmd:pmd"
         }
     }
     stage('report') {
