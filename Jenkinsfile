@@ -36,3 +36,4 @@ node {
         pmd pattern: 'target/pmd.xml'    
     }
 }
+
