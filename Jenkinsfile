@@ -10,7 +10,7 @@ node {
         echo "WORKSPACE = " + workspace
     }
     stage('Checkout') {
-        git "https://github.com/comquent/spring-petclinic.git"
+        checkout scm
     }
     stage('Build') {
         withMaven(maven: mvnVersion) {
