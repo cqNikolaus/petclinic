@@ -1,6 +1,6 @@
 #!groovy
 
-def mvnVersion = 'MVN_354'
+def mvnVersion = 'MVN354'
 
 node {
     stage('Init') {
@@ -10,16 +10,16 @@ node {
         echo "WORKSPACE = " + workspace
     }
     stage('Checkout') {
-        checkout scm
+        git "https://github.com/comquent/spring-petclinic.git"
     }
     stage('Build') {
         withMaven(maven: mvnVersion) {
-            sh "mvn clean install -Dmaven.test.skip=true"
+            sh "mvn install -Dmaven.test.skip=true"
         }
     }   
     stage('Test') {
         withMaven(maven: mvnVersion) {
-                sh "mvn test" 
+            sh "mvn test" 
         }
     }   
     stage('Analyse') {
@@ -29,11 +29,10 @@ node {
             sh "mvn pmd:pmd"
         }
     }
-    stage('report') {
+    stage('Report') {
         junit 'target/surefire-reports/TEST-*.xml'
-        findbugs pattern: 'target/findbugsXml.xml'
+//        findbugs pattern: 'target/findbugsXml.xml'
         checkstyle pattern: 'target/checkstyle-result.xml'
         pmd pattern: 'target/pmd.xml'    
     }
 }
-
