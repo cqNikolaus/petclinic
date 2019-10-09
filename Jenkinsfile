@@ -13,17 +13,17 @@ node {
         checkout scm
     }
     stage('Build') {
-        withMaven(maven: mvnVersion) {
+        withMaven(maven: mvnVersion, publisherStrategy: EXPLICIT) {
             sh "mvn install -Dmaven.test.skip=true"
         }
     }   
     stage('Test') {
-        withMaven(maven: mvnVersion) {
+        withMaven(maven: mvnVersion, publisherStrategy: EXPLICIT) {
             sh "mvn test" 
         }
     }   
     stage('Analyse') {
-        withMaven(maven: mvnVersion) {
+        withMaven(maven: mvnVersion, publisherStrategy: EXPLICIT) {
             sh "mvn findbugs:findbugs" 
             sh "mvn checkstyle:checkstyle"
             sh "mvn pmd:pmd"
@@ -31,7 +31,7 @@ node {
     }
     stage('Report') {
         junit 'target/surefire-reports/TEST-*.xml'
-//        findbugs pattern: 'target/findbugsXml.xml'
+        findbugs pattern: 'target/findbugsXml.xml'
         checkstyle pattern: 'target/checkstyle-result.xml'
         pmd pattern: 'target/pmd.xml'    
     }
