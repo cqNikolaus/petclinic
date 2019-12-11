@@ -13,12 +13,12 @@ node {
         checkout scm
     }
     stage('Build') {
-        withMaven(maven: mvnVersion) {
-            sh "mvn clean install -Dmaven.test.skip=true"
+        withMaven(maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
+                sh "mvn clean install -Dmaven.test.skip=true"
         }
     }   
     stage('Test & Analyse') {
-        withMaven(maven: mvnVersion) {
+        withMaven(maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
             parallel (
                 test: { sh "mvn test" },
                 analyse: { sh "mvn findbugs:findbugs" 
