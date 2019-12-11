@@ -13,7 +13,7 @@ node {
         checkout scm
     }
     stage('Build') {
-        withMaven(maven: mvnVersion, publisherStrategy: EXPLICIT) {
+        withMaven(maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
             sh "mvn install -Dmaven.test.skip=true"
         }
     }   
