@@ -1,7 +1,5 @@
 #!groovy
 
-def mvnVersion = 'MVN354'
-
 node {
     stage('Init') {
         deleteDir()
@@ -18,12 +16,12 @@ node {
         }
     }   
     stage('Test') {
-        withMaven(maven: mvnVersion, publisherStrategy: EXPLICIT) {
+        withMaven(maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
             sh "mvn test" 
         }
     }   
     stage('Analyse') {
-        withMaven(maven: mvnVersion, publisherStrategy: EXPLICIT) {
+        withMaven(maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
             sh "mvn findbugs:findbugs" 
             sh "mvn checkstyle:checkstyle"
             sh "mvn pmd:pmd"
