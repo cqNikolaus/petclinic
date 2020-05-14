@@ -1,36 +1,41 @@
 #!groovy
 
-node {
+node() {
     stage('Init') {
         deleteDir()
         echo "Where we are?"
         echo "PWD = " + pwd
         echo "WORKSPACE = " + workspace
     }
-    stage('Checkout') {
-        checkout scm
+    stage('checkout') {
+		checkout scm
     }
-    stage('Build') {
+    stage('build') {
         withMaven(maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
-            sh "mvn install -Dmaven.test.skip=true"
-        }
-    }   
-    stage('Test') {
-        withMaven(maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
-            sh "mvn test" 
-        }
-    }   
-    stage('Analyse') {
-        withMaven(maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
-            sh "mvn findbugs:findbugs" 
-            sh "mvn checkstyle:checkstyle"
-            sh "mvn pmd:pmd"
+            def goal = "install -Dmaven.test.skip=true"
+            sh "mvn ${goal}"
         }
     }
-    stage('Report') {
-        junit 'target/surefire-reports/TEST-*.xml'
+    
+    stage('test') {
+        withMaven(maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
+            def goal = "test -Dmaven.test.failure.ignore=true"
+            sh "mvn ${goal}"
+        }
+    }
+    
+    stage('analyse') {
+        withMaven(maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
+            ["pmd:pmd", "checkstyle:checkstyle", "findbugs:findbugs"].each() {
+                sh "mvn ${it}"
+            }
+        }
+    }
+    
+    stage('reporting') {
+        junit 'target/surefire-reports/*Tests.xml'
         findbugs pattern: 'target/findbugsXml.xml'
+        pmd pattern: 'target/pmd.xml'
         checkstyle pattern: 'target/checkstyle-result.xml'
-        pmd pattern: 'target/pmd.xml'    
     }
 }
