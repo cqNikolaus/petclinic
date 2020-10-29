@@ -17,31 +17,33 @@ node {
                 sh "mvn clean install -Dmaven.test.skip=true"
         }
     }   
-    parallel ( test: {
-            stage('Test') {
-                withMaven(maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
-                    def goal = "test -Dmaven.test.failure.ignore=true"
-                    sh "mvn ${goal}"
+    stage("test & analyse") {
+        parallel ( test: {
+                stage('Test') {
+                    withMaven(maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
+                        def goal = "test -Dmaven.test.failure.ignore=true"
+                        sh "mvn ${goal}"
+                    }
+                    junit 'target/surefire-reports/*Tests.xml'
                 }
-                junit 'target/surefire-reports/*Tests.xml'
+            }, analyse : {
+        
+                stage('Analyse') {
+                    withMaven(maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
+                        sh "mvn findbugs:findbugs" 
+                        sh "mvn checkstyle:checkstyle"
+                        sh "mvn pmd:pmd"
+                    }
+                }   
+            }, docu : {
+                stage('Docu') {
+                    withMaven(maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
+                        sh "mvn javadoc:javadoc -Dmaven.javadoc.failOnError=false"
+                    }
+                }
             }
-        }, analyse : {
-    
-            stage('Analyse') {
-                withMaven(maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
-                    sh "mvn findbugs:findbugs" 
-                    sh "mvn checkstyle:checkstyle"
-                    sh "mvn pmd:pmd"
-                }
-            }   
-        }, docu : {
-            stage('Docu') {
-                withMaven(maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
-                    sh "mvn javadoc:javadoc -Dmaven.javadoc.failOnError=false"
-                }
-            }
-        }
-    )
+        )
+    }
     stage('report') {
         recordIssues tool: findBugs(pattern: 'target/findbugsXml.xml', useRankAsPriority: true)
         recordIssues tool: pmdParser(pattern: 'target/pmd.xml')
