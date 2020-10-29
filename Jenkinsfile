@@ -15,6 +15,7 @@ node() {
             def goal = "install -Dmaven.test.skip=true"
             sh "mvn ${goal}"
         }
+        archiveArtifacts 'target/**/*.jar'
     }
     
     stage('test') {
@@ -22,6 +23,7 @@ node() {
             def goal = "test -Dmaven.test.failure.ignore=true"
             sh "mvn ${goal}"
         }
+        junit 'target/surefire-reports/*Tests.xml'
     }
     
     stage('analyse') {
@@ -33,7 +35,6 @@ node() {
     }
     
     stage('reporting') {
-        junit 'target/surefire-reports/*Tests.xml'
         // findbugs pattern: 'target/findbugsXml.xml'
         recordIssues tool: findBugs(pattern: 'target/findbugsXml.xml', useRankAsPriority: true)
         // pmd pattern: 'target/pmd.xml'
