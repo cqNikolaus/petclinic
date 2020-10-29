@@ -34,7 +34,8 @@ node() {
     
     stage('reporting') {
         junit 'target/surefire-reports/*Tests.xml'
-        findbugs pattern: 'target/findbugsXml.xml'
+        // findbugs pattern: 'target/findbugsXml.xml'
+        scanForIssues tool: findBugs(pattern: 'target/findbugsXml.xml', useRankAsPriority: true)
         pmd pattern: 'target/pmd.xml'
         checkstyle pattern: 'target/checkstyle-result.xml'
     }
