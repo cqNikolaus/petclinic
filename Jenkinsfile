@@ -36,7 +36,9 @@ node() {
         junit 'target/surefire-reports/*Tests.xml'
         // findbugs pattern: 'target/findbugsXml.xml'
         scanForIssues tool: findBugs(pattern: 'target/findbugsXml.xml', useRankAsPriority: true)
-        pmd pattern: 'target/pmd.xml'
-        checkstyle pattern: 'target/checkstyle-result.xml'
+        // pmd pattern: 'target/pmd.xml'
+        scanForIssues tool: pmdParser(pattern: 'target/pmd.xml')
+        // checkstyle pattern: 'target/checkstyle-result.xml'
+        scanForIssues tool: checkStyle(pattern: 'target/checkstyle-result.xml')
     }
 }
