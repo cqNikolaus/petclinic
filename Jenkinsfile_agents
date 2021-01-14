@@ -50,9 +50,10 @@ node {
         unstash "docu"
     
         junit 'target/surefire-reports/TEST-*.xml'
-        findbugs pattern: 'target/findbugsXml.xml'
-        checkstyle pattern: 'target/checkstyle-result.xml'
-        pmd pattern: 'target/pmd.xml'    
+ 
+        recordIssues(tools: [checkStyle()])
+        recordIssues(tools: [findBugs(useRankAsPriority: true)])
+        recordIssues(tools: [pmdParser()])
     }
     
 }
