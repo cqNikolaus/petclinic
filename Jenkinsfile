@@ -24,12 +24,9 @@ node {
     }
     stage('analyse') {
         withMaven(maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
-            def retSt = sh returnStatus: true, script: 'mvn pmd:pmd'
-            echo "Beendet mit " + retSt 
-            retSt = sh returnStatus: true, script: 'mvn findbugs:findbugs'
-            echo "Beendet mit " + retSt 
-            retSt = sh returnStatus: true, script: 'mvn checkstyle:checkstyle'
-            echo "Beendet mit " + retSt 
+            sh returnStatus: true, script: 'mvn pmd:pmd'
+            sh returnStatus: true, script: 'mvn findbugs:findbugs'
+            sh returnStatus: true, script: 'mvn checkstyle:checkstyle'
         }
         recordIssues(tools: [checkStyle()])
         recordIssues(tools: [findBugs(useRankAsPriority: true)])
