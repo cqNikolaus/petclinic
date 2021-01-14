@@ -6,9 +6,6 @@ node {
     stage('Checkout') {
             deleteDir()
             checkout scm
-            withMaven(maven: mvnVersion) {
-                sh "mvn clean install -Dmaven.test.skip=true"
-            }
     }
     stage('Build') {
             withMaven(maven: mvnVersion) {
