@@ -24,9 +24,9 @@ node {
     }
     stage('analyse') {
         withMaven(maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
-            sh returnStatus: true, script: 'mvn pmd:pmd'
-            sh returnStatus: true, script: 'mvn findbugs:findbugs'
-            sh returnStatus: true, script: 'mvn checkstyle:checkstyle'
+            sh 'mvn pmd:pmd'
+            sh 'mvn findbugs:findbugs'
+            sh 'mvn checkstyle:checkstyle'
         }
         recordIssues(tools: [checkStyle()])
         recordIssues(tools: [findBugs(useRankAsPriority: true)])
