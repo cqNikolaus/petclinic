@@ -5,7 +5,7 @@
 node {
     stage('checkout') {
         deleteDir()
-        git credentialsId: 'cq-jenkins-gitlab-access', url: 'https://gitlab.comquent.de/training/petclinic.git'    
+        checkout scm
     }
     
     stage('build') {
