@@ -1,45 +1,38 @@
-#!groovy
+// Musterloeseung der PetClinic Pipeline fuer das CQ Jenkins-Pipeline-Training
+// Version 2.0 
+// * next generation analysis - anstatt findbugs, pmd und checkstyle reporting
 
-node() {
-    stage('Init') {
-        deleteDir()
-        echo "Where we are?"
-        echo "PWD = " + pwd
-        echo "WORKSPACE = " + workspace
-    }
+node {
     stage('checkout') {
-		checkout scm
+        deleteDir()
+        git credentialsId: 'cq-jenkins-gitlab-access', url: 'https://gitlab.comquent.de/training/petclinic.git'    
     }
+    
     stage('build') {
         withMaven(maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
-            def goal = "install -Dmaven.test.skip=true"
-            sh "mvn ${goal}"
+            sh "mvn install -Dmaven.test.skip=true"
         }
-        archiveArtifacts 'target/**/*.jar'
+        archiveArtifacts artifacts: 'target/**/*.jar'
     }
     
     stage('test') {
         withMaven(maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
-            def goal = "test -Dmaven.test.failure.ignore=true"
-            sh "mvn ${goal}"
+            def retSt = sh returnStatus: true, script: 'mvn test'
+            echo "Beendet mit " + retSt 
         }
         junit 'target/surefire-reports/*Tests.xml'
     }
-    
     stage('analyse') {
         withMaven(maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
-            ["pmd:pmd", "checkstyle:checkstyle", "findbugs:findbugs"].each() {
-                sh "mvn ${it}"
-            }
+            def retSt = sh returnStatus: true, script: 'mvn pmd:pmd'
+            echo "Beendet mit " + retSt 
+            retSt = sh returnStatus: true, script: 'mvn findbugs:findbugs'
+            echo "Beendet mit " + retSt 
+            retSt = sh returnStatus: true, script: 'mvn checkstyle:checkstyle'
+            echo "Beendet mit " + retSt 
         }
-    }
-    
-    stage('reporting') {
-        // findbugs pattern: 'target/findbugsXml.xml'
-        recordIssues tool: findBugs(pattern: 'target/findbugsXml.xml', useRankAsPriority: true)
-        // pmd pattern: 'target/pmd.xml'
-        recordIssues tool: pmdParser(pattern: 'target/pmd.xml')
-        // checkstyle pattern: 'target/checkstyle-result.xml'
-        recordIssues tool: checkStyle(pattern: 'target/checkstyle-result.xml')
+        recordIssues(tools: [checkStyle()])
+        recordIssues(tools: [findBugs(useRankAsPriority: true)])
+        recordIssues(tools: [pmdParser()])
     }
 }
