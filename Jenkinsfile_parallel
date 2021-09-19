@@ -13,14 +13,14 @@ node {
         checkout scm
     }
     stage('Build') {
-        withMaven(maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
+        withMaven(jdk: 'JDK8', maven: 'MVN360', publisherStrategy: 'EXPLICIT') {
                 sh "mvn clean install -Dmaven.test.skip=true"
         }
     }   
     stage("test & analyse") {
         parallel ( test: {
                 stage('Test') {
-                    withMaven(maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
+                    withMaven(jdk: 'JDK8', maven: 'MVN360', publisherStrategy: 'EXPLICIT') {
                         def goal = "test -Dmaven.test.failure.ignore=true"
                         sh "mvn ${goal}"
                     }
@@ -29,7 +29,7 @@ node {
             }, analyse : {
         
                 stage('Analyse') {
-                    withMaven(maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
+                    withMaven(jdk: 'JDK8', maven: 'MVN360', publisherStrategy: 'EXPLICIT') {
                         sh "mvn findbugs:findbugs" 
                         sh "mvn checkstyle:checkstyle"
                         sh "mvn pmd:pmd"
@@ -37,7 +37,7 @@ node {
                 }   
             }, docu : {
                 stage('Docu') {
-                    withMaven(maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
+                    withMaven(jdk: 'JDK8', maven: 'MVN360', publisherStrategy: 'EXPLICIT') {
                         sh "mvn javadoc:javadoc -Dmaven.javadoc.failOnError=false"
                     }
                 }
