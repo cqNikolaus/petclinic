@@ -7,8 +7,6 @@ pipeline() {
     stages {
         stage('prepare') {
             steps {
-//                deleteDir()
-
                 sh "mvn -version"
             }
         }
@@ -29,5 +27,16 @@ pipeline() {
                 }
             }
         }
+        stage('analyse') {
+            steps {
+                sh 'mvn pmd:pmd'
+                sh 'mvn findbugs:findbugs'
+                sh 'mvn checkstyle:checkstyle'
+                recordIssues(tools: [checkStyle()])
+                recordIssues(tools: [findBugs(useRankAsPriority: true)])
+                recordIssues(tools: [pmdParser()])
+            }
+        }
+
     }
 }
