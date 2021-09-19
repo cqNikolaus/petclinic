@@ -1,11 +1,16 @@
 // Musterloeseung der PetClinic Pipeline fuer das CQ Jenkins-Pipeline-Training
 // Version 2.0 
 // * next generation analysis - anstatt findbugs, pmd und checkstyle reporting
+// Version 3.0 
+// * Maven 3.6 und Java 8 im Jenkins von Java 11
 
 node {
-    stage('checkout') {
+    stage('prepare') {
         deleteDir()
         checkout scm
+        withMaven(maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
+            sh "mvn -version"
+        }
     }
     
     stage('build') {
