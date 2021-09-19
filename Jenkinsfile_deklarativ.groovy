@@ -6,19 +6,29 @@ pipeline() {
     stages {
         stage('prepare') {
             steps {
-            // One or more steps need to be included within the steps block.
+                deleteDir()
+                withMaven(jdk: 'JDK8', maven: 'MVN360', publisherStrategy: 'EXPLICIT') {
+                    sh "mvn -version"
+                }
             }
         }
 
         stage('build') {
             steps {
-            // One or more steps need to be included within the steps block.
+                withMaven(jdk: 'JDK8', maven: 'MVN360', publisherStrategy: 'EXPLICIT') {
+                    sh "mvn install -Dmaven.test.skip=true"
+                }
+                archiveArtifacts artifacts: 'target/**/*.jar'
             }
         }
 
         stage('test') {
             steps {
-            // One or more steps need to be included within the steps block.
+                withMaven(jdk: 'JDK8', maven: 'MVN360', publisherStrategy: 'EXPLICIT') {
+                    def retSt = sh returnStatus: true, script: 'mvn test'
+                    echo "Beendet mit " + retSt 
+                }
+                junit 'target/surefire-reports/*Tests.xml'
             }
         }
     }
