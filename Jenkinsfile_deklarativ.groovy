@@ -1,7 +1,7 @@
 pipeline() {
     agent any
     tools {
-        maven 'MVN360' 
+        maven 'MVN360', 
         java  'JDK8' 
     }
     stages {
