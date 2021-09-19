@@ -1,4 +1,5 @@
 pipeline() {
+    agent any
     environment {
         mvnVersion = "MVN36"
         javaVersion = "JAVA8"
