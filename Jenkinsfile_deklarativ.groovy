@@ -7,6 +7,8 @@ pipeline() {
     stages {
         stage('prepare') {
             steps {
+                deleteDir()
+                checkout scm
                 sh "mvn -version"
             }
         }
