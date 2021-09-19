@@ -7,7 +7,8 @@ pipeline() {
     stages {
         stage('prepare') {
             steps {
-                deleteDir()
+//                deleteDir()
+
                 sh "mvn -version"
             }
         }
