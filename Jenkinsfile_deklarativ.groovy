@@ -39,6 +39,10 @@ pipeline() {
                 recordIssues(tools: [pmdParser()])
             }
         }
-
+    }
+    post {
+        always {
+            echo "pipeline done"
+        }
     }
 }
