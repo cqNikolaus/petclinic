@@ -8,27 +8,27 @@ node {
     stage('prepare') {
         deleteDir()
         checkout scm
-        withMaven(maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
+        withMaven(jdk: 'JDK8', maven: 'MVN360', publisherStrategy: 'EXPLICIT') {
             sh "mvn -version"
         }
     }
     
     stage('build') {
-        withMaven(maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
+        withMaven(jdk: 'JDK8', maven: 'MVN360', publisherStrategy: 'EXPLICIT') {
             sh "mvn install -Dmaven.test.skip=true"
         }
         archiveArtifacts artifacts: 'target/**/*.jar'
     }
     
     stage('test') {
-        withMaven(maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
+        withMaven(jdk: 'JDK8', maven: 'MVN360', publisherStrategy: 'EXPLICIT') {
             def retSt = sh returnStatus: true, script: 'mvn test'
             echo "Beendet mit " + retSt 
         }
         junit 'target/surefire-reports/*Tests.xml'
     }
     stage('analyse') {
-        withMaven(maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
+        withMaven(jdk: 'JDK8', maven: 'MVN360', publisherStrategy: 'EXPLICIT') {
             sh 'mvn pmd:pmd'
             sh 'mvn findbugs:findbugs'
             sh 'mvn checkstyle:checkstyle'
