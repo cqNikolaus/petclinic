@@ -1,5 +1,3 @@
-#!groovy
-
 def mvnVersion = 'MVN354'
 
 node {
@@ -13,14 +11,14 @@ node {
         checkout scm
     }
     stage('Build') {
-        withMaven(jdk: 'JDK8', maven: 'MVN360', publisherStrategy: 'EXPLICIT') {
+        withMaven(jdk: 'JDK8', maven: mvnVersion, publisherStrategy: 'EXPLICIT') {
                 sh "mvn clean install -Dmaven.test.skip=true"
         }
     }   
     stage("test & analyse") {
         parallel ( test: {
                 stage('Test') {
-                    withMaven(jdk: 'JDK8', maven: 'MVN360', publisherStrategy: 'EXPLICIT') {
+                    withMaven(jdk: 'JDK8', maven: mvnVersion, publisherStrategy: 'EXPLICIT') {
                         def goal = "test -Dmaven.test.failure.ignore=true"
                         sh "mvn ${goal}"
                     }
@@ -29,7 +27,7 @@ node {
             }, analyse : {
         
                 stage('Analyse') {
-                    withMaven(jdk: 'JDK8', maven: 'MVN360', publisherStrategy: 'EXPLICIT') {
+                    withMaven(jdk: 'JDK8', maven: mvnVersion, publisherStrategy: 'EXPLICIT') {
                         sh "mvn findbugs:findbugs" 
                         sh "mvn checkstyle:checkstyle"
                         sh "mvn pmd:pmd"
@@ -37,7 +35,7 @@ node {
                 }   
             }, docu : {
                 stage('Docu') {
-                    withMaven(jdk: 'JDK8', maven: 'MVN360', publisherStrategy: 'EXPLICIT') {
+                    withMaven(jdk: 'JDK8', maven: mvnVersion, publisherStrategy: 'EXPLICIT') {
                         sh "mvn javadoc:javadoc -Dmaven.javadoc.failOnError=false"
                     }
                 }
