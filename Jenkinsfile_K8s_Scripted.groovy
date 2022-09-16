@@ -18,6 +18,7 @@ podTemplate(
                 echo "###### inside the container ######"
                 echo pwd()
                 sh 'ls -la'
+                sh 'df -h'
                 checkout scm
                 sh "mvn install -Dmaven.test.skip=true"
             }
