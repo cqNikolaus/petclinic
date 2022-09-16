@@ -7,13 +7,15 @@ podTemplate(
 ) {
     node(POD_LABEL) {
         stage('prepare') {
+            echo "###### outside the container ######"
+            echo pwd()
+            sh 'ls -la'
             container('maven') {
+                echo "###### inside the container ######"
                 echo pwd()
                 sh 'ls -la'
                 checkout scm
-                withMaven(jdk: 'JDK8', maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
-                    sh "mvn -version"
-                }
+                sh "mvn install -Dmaven.test.skip=true"
             }
             archiveArtifacts artifacts: 'target/**/*.jar'
         }
