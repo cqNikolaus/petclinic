@@ -5,7 +5,7 @@ podTemplate(
     containerTemplate(name: 'python', image: 'python:latest', ttyEnabled: true, command: 'cat')
   ],
   volumes: [
-    persistentVolumeClaim(mountPath: '/root/.m2/repository', claimName: 'maven-repo', readOnly: false)
+    persistentVolumeClaim(mountPath: '/root/.m2/repository', claimName: 'csi-pvc-my-csi-app-set-0', readOnly: false)
   ]
 
 ) {
