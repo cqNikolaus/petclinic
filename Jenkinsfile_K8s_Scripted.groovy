@@ -14,7 +14,6 @@ podTemplate(
             echo "###### outside the container ######"
             echo pwd()
             sh 'ls -la'
-            sh 'docker images'
             container('maven') {
                 echo "###### inside the container ######"
                 echo pwd()
