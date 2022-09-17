@@ -12,16 +12,11 @@ podTemplate(
 
 ) {
     node(POD_LABEL) {
-        stage('prepare') {
-            echo "###### outside the container ######"
-            echo pwd()
-            sh 'ls -la'
+        stage('checkout') {
+            checkout scm
+        }
+        stage('build') {
             container('maven') {
-                echo "###### inside the container ######"
-                echo pwd()
-                sh 'ls -la'
-                sh 'df -h'
-                checkout scm
                 sh "mvn install -Dmaven.test.skip=true"
             }
             archiveArtifacts artifacts: 'target/**/*.jar'
