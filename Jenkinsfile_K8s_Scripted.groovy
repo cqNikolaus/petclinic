@@ -35,14 +35,14 @@ podTemplate(
             junit 'target/surefire-reports/*Tests.xml'
         }
 
-        stage('docker') {
-            container('docker') {
-                sh "docker version"
-            }
-        }
         stage('k8s') {
             container('kubectl') {
                 sh "kubectl version --short"
+            }
+        }
+        stage('docker') {
+            container('docker') {
+                sh "docker version"
             }
         }
         stage('python') {
