@@ -20,7 +20,9 @@ podTemplate(
             container('maven') {
                 sh "mvn install -Dmaven.test.skip=true"
             }
-            archiveArtifacts artifacts: 'target/**/*.jar'
+*/
+//            archiveArtifacts artifacts: 'target/**/*.jar'
+/*
         }
         
         stage('test') {
