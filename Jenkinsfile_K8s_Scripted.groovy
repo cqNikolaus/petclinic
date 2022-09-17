@@ -12,6 +12,7 @@ podTemplate(
 
 ) {
     node(POD_LABEL) {
+/*
         stage('checkout') {
             checkout scm
         }
@@ -29,17 +30,6 @@ podTemplate(
             }
             junit 'target/surefire-reports/*Tests.xml'
         }
-
-        stage('docker') {
-            container('docker') {
-                sh "docker version"
-            }
-        }
-        stage('python') {
-            container('python') {
-                sh "python --version"
-            }
-        }
         stage('analyse') {
             container('maven') {
                 sh 'mvn pmd:pmd'
@@ -50,5 +40,17 @@ podTemplate(
             recordIssues(tools: [findBugs(useRankAsPriority: true)])
             recordIssues(tools: [pmdParser()])
         }
+    */
+        stage('docker') {
+            container('docker') {
+                sh "docker version"
+            }
+        }
+        stage('python') {
+            container('python') {
+                sh "python --version"
+            }
+        }
+
     }
 }
