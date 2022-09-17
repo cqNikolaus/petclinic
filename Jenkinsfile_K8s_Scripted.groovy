@@ -2,7 +2,8 @@ podTemplate(
   cloud: 'kubernetes',
   containers: [
     containerTemplate(name: 'maven', image: 'maven:3.6.3-jdk-8', ttyEnabled: true, command: 'cat'),
-    containerTemplate(name: 'python', image: 'python:latest', ttyEnabled: true, command: 'cat')
+    containerTemplate(name: 'python', image: 'python:latest', ttyEnabled: true, command: 'cat'),
+    containerTemplate(name: 'docker', image: 'docker:latest', ttyEnabled: true, command: 'cat')
   ],
   volumes: [
     persistentVolumeClaim(mountPath: '/root/.m2/repository', claimName: 'csi-pvc-my-csi-app-set-0', readOnly: false)
@@ -33,10 +34,14 @@ podTemplate(
             junit 'target/surefire-reports/*Tests.xml'
         }
 
+        stage('docker') {
+            container('docker') {
+                sh "docker version"
+            }
+        }
         stage('python') {
             container('python') {
                 sh "python --version"
-                sleep 100
             }
         }
         stage('analyse') {
