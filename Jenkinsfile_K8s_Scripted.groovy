@@ -3,6 +3,7 @@ podTemplate(
   containers: [
     containerTemplate(name: 'maven', image: 'maven:3.6.3-jdk-8', ttyEnabled: true, command: 'cat'),
     containerTemplate(name: 'python', image: 'python:latest', ttyEnabled: true, command: 'cat'),
+    containerTemplate(name: 'kubectl', image: 'bitnami/kubectl', ttyEnabled: true, command: 'cat'),
     containerTemplate(name: 'docker', image: 'docker:latest', ttyEnabled: true, command: 'cat')
   ],
   volumes: [
@@ -37,6 +38,11 @@ podTemplate(
         stage('docker') {
             container('docker') {
                 sh "docker version"
+            }
+        }
+        stage('k8s') {
+            container('kubectl') {
+                sh "kubectl version --short"
             }
         }
         stage('python') {
