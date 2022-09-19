@@ -18,10 +18,10 @@ pipeline {
         container('docker') {
           script{
             docker.withRegistry('https://gitlab.comquent.academy:5050', 'cq-academy-gitlab-access') {
-            def myImage = docker.build('tn00/petclinic')
-            myImage.push('latest')
+              def myImage = docker.build('tn00/petclinic')
+              myImage.push('latest')
+            }
           }
-          sh "docker images"
         }
       }
     }
