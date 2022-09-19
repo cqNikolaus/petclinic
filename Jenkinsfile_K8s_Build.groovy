@@ -17,11 +17,11 @@ pipeline {
       steps {
         container('docker') {
           script{
-            docker.build('tn00/petclinic')
+            docker.withRegistry('https://gitlab.comquent.academy:5050', 'cq-academy-gitlab-access') {
+            def myImage = docker.build('tn00/petclinic')
+            myImage.push('latest')
           }
           sh "docker images"
-//          sh "docker build -t vividlukeloresch/petclinic:latest ."  // when we run docker in this step, we're running it via a shell on the docker build-pod container, 
-//          sh "docker push vividlukeloresch/petclinic:dev"        // which is just connecting to the host docker deaemon
         }
       }
     }
