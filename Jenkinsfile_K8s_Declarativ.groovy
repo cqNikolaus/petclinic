@@ -14,13 +14,13 @@ pipeline {
         archiveArtifacts artifacts: 'target/**/*.jar'   
       }
     }
-    stage('Test Project') {
+    stage('Running Tests') {
       steps {  
         sh returnStatus: true, script: 'mvn test'
         junit 'target/surefire-reports/*Tests.xml' 
       }
     }
-    stage('analyse') {
+    stage('Static Analysis') {
       steps {
         sh 'mvn pmd:pmd'
         sh 'mvn findbugs:findbugs'
