@@ -16,7 +16,9 @@ pipeline {
     stage('Build Docker Image') {
       steps {
         container('docker') {
-            docker.build('tn00/petclinic')  
+          script{
+            docker.build('tn00/petclinic')
+          }
 //          sh "docker build -t vividlukeloresch/petclinic:latest ."  // when we run docker in this step, we're running it via a shell on the docker build-pod container, 
 //          sh "docker push vividlukeloresch/petclinic:dev"        // which is just connecting to the host docker deaemon
         }
