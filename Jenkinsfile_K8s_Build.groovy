@@ -17,7 +17,7 @@ pipeline {
       steps {
         container('docker') {
           script{
-            docker.withRegistry('https://gitlab.comquent.academy:5050', 'cq-academy-gitlab-access') {
+            docker.withRegistry('https://gitlab.comquent.academy:5050', 'cq-gitlab-deploy-token') {
               def myImage = docker.build('tn00/petclinic')
               myImage.push('latest')
             }
