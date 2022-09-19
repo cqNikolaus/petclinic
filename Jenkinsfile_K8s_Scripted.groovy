@@ -3,7 +3,6 @@ podTemplate(
   containers: [
     containerTemplate(name: 'maven', image: 'maven:3.6.3-jdk-8', ttyEnabled: true, command: 'cat'),
     containerTemplate(name: 'python', image: 'python:latest', ttyEnabled: true, command: 'cat'),
-//    containerTemplate(name: 'kubectl', image: 'bitnami/kubectl', ttyEnabled: true, command: 'cat'),
     containerTemplate(name: 'docker', image: 'docker:latest', ttyEnabled: true, command: 'cat', envVars: [containerEnvVar(key: 'DOCKER_HOST', value: 'tcp://localhost:2375')])
   ],
   volumes: [
@@ -12,7 +11,6 @@ podTemplate(
 
 ) {
     node(POD_LABEL) {
-/*
         stage('checkout') {
             checkout scm
         }
@@ -20,9 +18,7 @@ podTemplate(
             container('maven') {
                 sh "mvn install -Dmaven.test.skip=true"
             }
-*/
-//            archiveArtifacts artifacts: 'target/**/*.jar'
-/*
+            archiveArtifacts artifacts: 'target/**/*.jar'
         }
         
         stage('test') {
@@ -42,7 +38,7 @@ podTemplate(
             recordIssues(tools: [findBugs(useRankAsPriority: true)])
             recordIssues(tools: [pmdParser()])
         }
-    */
+
         stage('docker') {
             container('docker') {
                 sh "docker version"
@@ -53,6 +49,5 @@ podTemplate(
                 sh "python --version"
             }
         }
-
     }
 }
