@@ -10,7 +10,24 @@ pipeline {
   stages {
     stage('Build Project') {
       steps {  // no container directive is needed as the maven container is the default
-        sh "mvn package -Dmaven.test.skip=true"   
+        sh "mvn package -Dmaven.test.skip=true"
+        archiveArtifacts artifacts: 'target/**/*.jar'   
+      }
+    }
+    stage('Test Project') {
+      steps {  
+        sh returnStatus: true, script: 'mvn test'
+        junit 'target/surefire-reports/*Tests.xml' 
+      }
+    }
+    stage('analyse') {
+      steps {
+        sh 'mvn pmd:pmd'
+        sh 'mvn findbugs:findbugs'
+        sh 'mvn checkstyle:checkstyle'
+        recordIssues(tools: [checkStyle()])
+        recordIssues(tools: [findBugs(useRankAsPriority: true)])
+        recordIssues(tools: [pmdParser()])
       }
     }
     stage('Build Docker Image') {
