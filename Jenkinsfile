@@ -4,6 +4,7 @@
 // Version 3.0 
 // * Maven 3.6 und Java 8 im Jenkins von Java 11
 
+timestamps() {
 node {
     stage('Checkout the Source Code') {
         deleteDir()
@@ -37,4 +38,6 @@ node {
         recordIssues(tools: [findBugs(useRankAsPriority: true)])
         recordIssues(tools: [pmdParser()])
     }
+    stage('')
+}
 }
