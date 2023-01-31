@@ -5,7 +5,7 @@
 // * Maven 3.6 und Java 8 im Jenkins von Java 11
 
 node {
-    stage('prepare') {
+    stage('Checkout the Source Code') {
         deleteDir()
         checkout scm
         withMaven(jdk: 'JDK8', maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
@@ -13,21 +13,21 @@ node {
         }
     }
     
-    stage('build') {
+    stage('Build the Project') {
         withMaven(jdk: 'JDK8', maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
             sh "mvn install -Dmaven.test.skip=true"
         }
         archiveArtifacts artifacts: 'target/**/*.jar'
     }
     
-    stage('test') {
+    stage('Run Unit Tests') {
         withMaven(jdk: 'JDK8', maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
             def retSt = sh returnStatus: true, script: 'mvn test'
             echo "Beendet mit " + retSt 
         }
         junit 'target/surefire-reports/*Tests.xml'
     }
-    stage('analyse') {
+    stage('Static Code Analysis') {
         withMaven(jdk: 'JDK8', maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
             sh 'mvn pmd:pmd'
             sh 'mvn findbugs:findbugs'
