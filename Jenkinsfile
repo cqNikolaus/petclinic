@@ -20,7 +20,7 @@ node {
         archiveArtifacts artifacts: 'target/**/*.jar'
     }
     
-    stage('Run Unit Tests') {
+    stage('Run the Unit Tests') {
         withMaven(jdk: 'JDK8', maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
             def retSt = sh returnStatus: true, script: 'mvn test'
             echo "Beendet mit " + retSt 
