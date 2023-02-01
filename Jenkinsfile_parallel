@@ -35,8 +35,8 @@ node {
                 }   
             }, docu : {
                 stage('Docu') {
-                    withMaven(jdk: 'JDK8.', maven: mvnVersion, publisherStrategy: 'EXPLICIT') {
-                        sh "mvn javadoc:javadoc -Dmaven.javadoc.failOnError=false"
+                    withMaven(jdk: 'JDK8', maven: mvnVersion, publisherStrategy: 'EXPLICIT') {
+                        sh "mvn javadocx:javadoc -Dmaven.javadoc.failOnError=false"
                     }
                 }
             }
