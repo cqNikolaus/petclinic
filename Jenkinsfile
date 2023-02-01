@@ -29,7 +29,7 @@ node {
         junit 'target/surefire-reports/*Tests.xml'
     }
     stage('Static Code Analysis') {
-        withMaven(jdk: 'JDK8', maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
+        withMaven(jdk: 'JDK8x', maven: 'MVN354', publisherStrategy: 'EXPLICIT') {
             sh 'mvn pmd:pmd'
             sh 'mvn findbugs:findbugs'
             sh 'mvn checkstyle:checkstyle'
