@@ -35,8 +35,9 @@ node {
                 }   
             }, docu : {
                 stage('Docu') {
+                    readFile 'doc.properties'
                     withMaven(jdk: 'JDK8', maven: mvnVersion, publisherStrategy: 'EXPLICIT') {
-                        sh "mvn javadocx:javadoc -Dmaven.javadoc.failOnError=false"
+                        sh "mvn javadoc:javadoc -Dmaven.javadoc.failOnError=false"
                     }
                 }
             }
