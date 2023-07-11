@@ -28,11 +28,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 @MappedSuperclass
 public class Person extends BaseEntity {
 
-    @Column(name = "first_name")
+    @Column(name = "firstname")
     @NotEmpty
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "lastname")
     @NotEmpty
     private String lastName;
 
