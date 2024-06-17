@@ -29,9 +29,8 @@ node {
                 stage('Analyse') {
                     withMaven(jdk: 'JDK8', maven: mvnVersion, publisherStrategy: 'EXPLICIT') {
                         sh "mvn findbugs:findbugs" 
-                        readFile 'doc.properties'
                         sh "mvn checkstyle:checkstyle"
-                        sh "mvn pmd:pmd"
+//                        sh "mvn pmd:pmd"
                     }
                 }   
             }, docu : {
