@@ -200,6 +200,23 @@
         </plugin>   
 
       <plugin>
+        <groupId>com.diffblue</groupId>
+        <artifactId>cover-maven-plugin</artifactId>
+        <version>2024.11.02</version>
+        <executions>
+          <execution>
+            <id>generate-tests</id>
+            <phase>generate-test-sources</phase>
+            <goals>
+              <goal>cover</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+        </configuration>
+      </plugin>
+
+      <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>0.8.10</version>
