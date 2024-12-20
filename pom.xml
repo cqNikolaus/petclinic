@@ -31,6 +31,17 @@
 
   </properties>
 
+    <pluginRepositories>
+      <pluginRepository>
+        <id>maven-diffblue-repository</id>
+        <name>Diffblue Public Maven Repository</name>
+        <url>https://maven.diffblue.com/release</url>
+        <snapshots>
+              <enabled>false</enabled>
+        </snapshots>
+      </pluginRepository>
+    </pluginRepositories>
+
   <dependencies>
     <!-- Spring and Spring Boot dependencies -->
     <dependency>
