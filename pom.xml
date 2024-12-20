@@ -33,14 +33,18 @@
 
     <pluginRepositories>
       <pluginRepository>
-        <id>maven-diffblue-repository</id>
+        <id>diffblue-release</id>
         <name>Diffblue Public Maven Repository</name>
-        <url>https://maven.diffblue.com/release</url>
+        <url>https://release.diffblue.com/maven/</url>
+        <releases>
+          <enabled>true</enabled>
+        </releases>
         <snapshots>
-              <enabled>false</enabled>
+          <enabled>false</enabled>
         </snapshots>
       </pluginRepository>
     </pluginRepositories>
+
 
   <dependencies>
     <!-- Spring and Spring Boot dependencies -->
@@ -212,19 +216,8 @@
 
       <plugin>
         <groupId>com.diffblue</groupId>
-        <artifactId>cover-maven-plugin</artifactId>
-        <version>2024.11.02</version>
-        <executions>
-          <execution>
-            <id>generate-tests</id>
-            <phase>generate-test-sources</phase>
-            <goals>
-              <goal>cover</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-        </configuration>
+            <artifactId>cover-maven-plugin</artifactId>
+            <version>2022.03.02</version>
       </plugin>
 
       <plugin>
