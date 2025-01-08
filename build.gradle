@@ -1,0 +1,94 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.16'
+    id 'io.spring.dependency-management' version '1.1.3'
+    id 'java'
+    // Jacoco für Code-Coverage
+    id 'jacoco'
+}
+
+group = 'org.springframework.samples'
+version = '1.5.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+// Repositories, aus denen Gradle Abhängigkeiten lädt
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    runtimeOnly 'org.hsqldb:hsqldb'
+    runtimeOnly 'mysql:mysql-connector-java:8.0.33'
+
+
+    // Cache API + Ehcache
+    implementation 'javax.cache:cache-api'
+    implementation 'org.ehcache:ehcache'
+
+    // WebJars
+    implementation 'org.webjars:webjars-locator'
+    implementation 'org.webjars:jquery:2.2.4'
+    implementation 'org.webjars:jquery-ui:1.11.4'
+    implementation 'org.webjars:bootstrap:3.3.6'
+
+    // Devtools
+    runtimeOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // WebJars dependencies
+    implementation 'org.webjars:webjars-locator:0.38' // Füge hier eine Version hinzu
+    implementation 'org.webjars:jquery:2.2.4'
+    implementation 'org.webjars:jquery-ui:1.11.4'
+    implementation 'org.webjars:bootstrap:3.3.6'
+
+        // Wichtig: Bean Validation-Starter für Spring Boot
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+        // Wichtig: Spring Boot Test-Starter (enthält SpringRunner, MockMvc, etc.)
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    
+    // JUnit 4 explizit, falls nicht aus Starter (damit @Test, @Before, RunWith in Version 4 verfügbar sind)
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+    testImplementation 'junit:junit:4.13.2'
+    testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.10.0' // Für alte JUnit 4 Tests
+
+    
+    // Mockito Core (für org.mockito.runners.MockitoJUnitRunner)
+
+    testImplementation 'org.mockito:mockito-core:4.11.0'
+    testImplementation 'org.mockito:mockito-junit-jupiter:4.11.0'
+
+
+
+    
+    // Optional, falls das alte NotEmpty etc. direkt aus dem Hibernate-Package stammt:
+    // implementation 'org.hibernate.validator:hibernate-validator:6.2.5.Final'
+}
+
+// Jacoco-Version angeben
+jacoco {
+    toolVersion = "0.8.10"
+}
+
+// Jacoco-Bericht (XML + HTML)
+jacocoTestReport {
+    reports {
+        xml.required = true  // für externe Tools
+        html.required = true
+    }
+}
+
+// Test-Task anpassen (falls nötig)
+test {
+    // Bei Boot 1.5.x kannst du noch JUnit4 oder JUnit5 einsetzen.
+    // Standard: JUnit4. Wenn du JUnit5 hast, brauchst du evtl. useJUnitPlatform()
+    // useJUnitPlatform()
+}
+
