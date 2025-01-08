@@ -1,0 +1,722 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Test Results</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+        <style>
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                margin: 20px;
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+            }
+            th, td {
+                border: 1px solid #ddd;
+                text-align: left;
+                padding: 8px;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+            tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+            .status-pass {
+                color: green;
+            }
+            .status-fail {
+                color: red;
+            }
+            pre {
+                background-color: #282c34 !important;
+                color: #ffffff !important;
+                padding: 10px;
+                border-radius: 5px;
+                overflow-x: auto;
+                white-space: pre-wrap;
+                font-family: 'Courier New', Courier, monospace;
+                font-size: 1.1em;  /* Slightly larger font size */
+            }
+        </style>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <th>Status</th>
+                <th>Reason</th>
+                <th>Exit Code</th>
+                <th>Language</th>
+                <th>Modified Test File</th>
+                <th>Details</th>
+            </tr>
+            
+            <tr>
+                <td class="status-FAIL">FAIL</td>
+                <td>Test failed</td>
+                <td>1</td>
+                <td>java</td>
+                <td>
+                    <details>
+                        <summary>View Full Code</summary>
+                        <pre><code><span class="diff-unchanged">  package org.springframework.samples.petclinic.owner;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;</span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;</span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;</span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">  import org.junit.Before;</span>
+<span class="diff-unchanged">  import org.junit.Test;</span>
+<span class="diff-unchanged">  import org.junit.runner.RunWith;</span>
+<span class="diff-unchanged">  import org.springframework.beans.factory.annotation.Autowired;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.mock.mockito.MockBean;</span>
+<span class="diff-unchanged">  import org.springframework.test.context.junit4.SpringRunner;</span>
+<span class="diff-unchanged">  import org.springframework.test.web.servlet.MockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">  /**</span>
+<span class="diff-unchanged">   * Reduced test class for {@link OwnerController}</span>
+<span class="diff-unchanged">   */</span>
+<span class="diff-unchanged">  @RunWith(SpringRunner.class)</span>
+<span class="diff-unchanged">  @WebMvcTest(OwnerController.class)</span>
+<span class="diff-unchanged">  public class OwnerControllerTests {</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      private static final int TEST_OWNER_ID = 1;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Autowired</span>
+<span class="diff-unchanged">      private MockMvc mockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @MockBean</span>
+<span class="diff-unchanged">      private OwnerRepository owners;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Before</span>
+<span class="diff-unchanged">      public void setup() {</span>
+<span class="diff-unchanged">          // Kein Setup für Owner erforderlich</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Test</span>
+<span class="diff-unchanged">      public void testInitCreationForm() throws Exception {</span>
+<span class="diff-unchanged">          mockMvc.perform(get("/owners/new"))</span>
+<span class="diff-unchanged">              .andExpect(status().isOk())</span>
+<span class="diff-unchanged">              .andExpect(view().name("owners/createOrUpdateOwnerForm"));</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Test</span>
+<span class="diff-unchanged">      public void testProcessCreationFormSuccess() throws Exception {</span>
+<span class="diff-unchanged">          mockMvc.perform(post("/owners/new")</span>
+<span class="diff-unchanged">              .param("firstName", "Joe")</span>
+<span class="diff-unchanged">              .param("lastName", "Bloggs")</span>
+<span class="diff-unchanged">              .param("address", "123 Caramel Street")</span>
+<span class="diff-unchanged">              .param("city", "London")</span>
+<span class="diff-unchanged">              .param("telephone", "01316761638")</span>
+<span class="diff-unchanged">          )</span>
+<span class="diff-unchanged">              .andExpect(status().is3xxRedirection());</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-added">+     mockMvc.perform(post("/owners/new")</span>
+<span class="diff-added">+         .param("firstName", "")  // Invalid first name</span>
+<span class="diff-added">+         .param("lastName", "Bloggs")</span>
+<span class="diff-added">+         .param("address", "123 Caramel Street")</span>
+<span class="diff-added">+         .param("city", "London")</span>
+<span class="diff-added">+         .param("telephone", "01316761638")</span>
+<span class="diff-added">+     )</span>
+<span class="diff-added">+         .andExpect(status().isOk())</span>
+<span class="diff-added">+         .andExpect(view().name("owners/createOrUpdateOwnerForm"));</span>
+<span class="diff-added">+ </span>
+<span class="diff-added">+ </span>
+<span class="diff-unchanged">  }</span></code></pre>
+                    </details>
+                </td>
+                <td>
+                    <details>
+                        <summary>View More</summary>
+                        <div><strong>STDERR:</strong> <pre><code class="language-java">Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:56: error: <identifier> expected
+    mockMvc.perform(post("/owners/new")
+                   ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:56: error: <identifier> expected
+    mockMvc.perform(post("/owners/new")
+                        ^
+2 errors
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileTestJava'.
+> Compilation failed; see the compiler output below.
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:56: error: <identifier> expected
+      mockMvc.perform(post("/owners/new")
+                     ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:56: error: <identifier> expected
+      mockMvc.perform(post("/owners/new")
+                          ^
+  2 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights.
+
+BUILD FAILED in 5s
+</code></pre></div>
+                        <div><strong>STDOUT:</strong> <pre><code class="language-java">> Task :clean
+
+> Task :compileJava
+
+> Task :processResources
+> Task :classes
+> Task :bootJarMainClassName
+> Task :bootJar
+> Task :jar
+> Task :assemble
+
+> Task :compileTestJava FAILED
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/Samples/Qodo-Cover/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.12/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+7 actionable tasks: 7 executed
+</code></pre></div>
+                        <div><strong>Test Code:</strong> <pre><code class="language-java">mockMvc.perform(post("/owners/new")
+    .param("firstName", "")  // Invalid first name
+    .param("lastName", "Bloggs")
+    .param("address", "123 Caramel Street")
+    .param("city", "London")
+    .param("telephone", "01316761638")
+)
+    .andExpect(status().isOk())
+    .andExpect(view().name("owners/createOrUpdateOwnerForm"));
+</code></pre></div>
+                        <div><strong>Imports:</strong> <pre><code class="language-java">""
+</code></pre></div>
+                    </details>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="status-FAIL">FAIL</td>
+                <td>Test failed</td>
+                <td>1</td>
+                <td>java</td>
+                <td>
+                    <details>
+                        <summary>View Full Code</summary>
+                        <pre><code><span class="diff-unchanged">  package org.springframework.samples.petclinic.owner;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;</span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;</span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;</span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">  import org.junit.Before;</span>
+<span class="diff-unchanged">  import org.junit.Test;</span>
+<span class="diff-unchanged">  import org.junit.runner.RunWith;</span>
+<span class="diff-unchanged">  import org.springframework.beans.factory.annotation.Autowired;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.mock.mockito.MockBean;</span>
+<span class="diff-unchanged">  import org.springframework.test.context.junit4.SpringRunner;</span>
+<span class="diff-unchanged">  import org.springframework.test.web.servlet.MockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-added">+ import static org.mockito.Mockito.when;</span>
+<span class="diff-added">+ import java.util.Collections;</span>
+<span class="diff-unchanged">  /**</span>
+<span class="diff-unchanged">   * Reduced test class for {@link OwnerController}</span>
+<span class="diff-unchanged">   */</span>
+<span class="diff-unchanged">  @RunWith(SpringRunner.class)</span>
+<span class="diff-unchanged">  @WebMvcTest(OwnerController.class)</span>
+<span class="diff-unchanged">  public class OwnerControllerTests {</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      private static final int TEST_OWNER_ID = 1;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Autowired</span>
+<span class="diff-unchanged">      private MockMvc mockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @MockBean</span>
+<span class="diff-unchanged">      private OwnerRepository owners;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Before</span>
+<span class="diff-unchanged">      public void setup() {</span>
+<span class="diff-unchanged">          // Kein Setup für Owner erforderlich</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Test</span>
+<span class="diff-unchanged">      public void testInitCreationForm() throws Exception {</span>
+<span class="diff-unchanged">          mockMvc.perform(get("/owners/new"))</span>
+<span class="diff-unchanged">              .andExpect(status().isOk())</span>
+<span class="diff-unchanged">              .andExpect(view().name("owners/createOrUpdateOwnerForm"));</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Test</span>
+<span class="diff-unchanged">      public void testProcessCreationFormSuccess() throws Exception {</span>
+<span class="diff-unchanged">          mockMvc.perform(post("/owners/new")</span>
+<span class="diff-unchanged">              .param("firstName", "Joe")</span>
+<span class="diff-unchanged">              .param("lastName", "Bloggs")</span>
+<span class="diff-unchanged">              .param("address", "123 Caramel Street")</span>
+<span class="diff-unchanged">              .param("city", "London")</span>
+<span class="diff-unchanged">              .param("telephone", "01316761638")</span>
+<span class="diff-unchanged">          )</span>
+<span class="diff-unchanged">              .andExpect(status().is3xxRedirection());</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-added">+     when(owners.findByLastName("NonExistent")).thenReturn(Collections.emptyList());</span>
+<span class="diff-added">+     mockMvc.perform(get("/owners")</span>
+<span class="diff-added">+         .param("lastName", "NonExistent")</span>
+<span class="diff-added">+     )</span>
+<span class="diff-added">+         .andExpect(status().isOk())</span>
+<span class="diff-added">+         .andExpect(view().name("owners/findOwners"));</span>
+<span class="diff-added">+ </span>
+<span class="diff-added">+ </span>
+<span class="diff-unchanged">  }</span></code></pre>
+                    </details>
+                </td>
+                <td>
+                    <details>
+                        <summary>View More</summary>
+                        <div><strong>STDERR:</strong> <pre><code class="language-java">Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:58: error: invalid method declaration; return type required
+    when(owners.findByLastName("NonExistent")).thenReturn(Collections.emptyList());
+    ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:58: error: <identifier> expected
+    when(owners.findByLastName("NonExistent")).thenReturn(Collections.emptyList());
+                              ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:59: error: <identifier> expected
+    mockMvc.perform(get("/owners")
+                   ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:59: error: <identifier> expected
+    mockMvc.perform(get("/owners")
+                       ^
+4 errors
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileTestJava'.
+> Compilation failed; see the compiler output below.
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:58: error: <identifier> expected
+      when(owners.findByLastName("NonExistent")).thenReturn(Collections.emptyList());
+                                ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:59: error: <identifier> expected
+      mockMvc.perform(get("/owners")
+                     ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:59: error: <identifier> expected
+      mockMvc.perform(get("/owners")
+                         ^/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:58: error: invalid method declaration; return type required
+      when(owners.findByLastName("NonExistent")).thenReturn(Collections.emptyList());
+      ^
+  4 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights.
+
+BUILD FAILED in 4s
+</code></pre></div>
+                        <div><strong>STDOUT:</strong> <pre><code class="language-java">> Task :clean
+
+> Task :compileJava
+
+> Task :processResources
+> Task :classes
+> Task :bootJarMainClassName
+> Task :bootJar
+> Task :jar
+> Task :assemble
+
+> Task :compileTestJava FAILED
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/Samples/Qodo-Cover/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.12/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+7 actionable tasks: 7 executed
+</code></pre></div>
+                        <div><strong>Test Code:</strong> <pre><code class="language-java">when(owners.findByLastName("NonExistent")).thenReturn(Collections.emptyList());
+mockMvc.perform(get("/owners")
+    .param("lastName", "NonExistent")
+)
+    .andExpect(status().isOk())
+    .andExpect(view().name("owners/findOwners"));
+</code></pre></div>
+                        <div><strong>Imports:</strong> <pre><code class="language-java">import static org.mockito.Mockito.when;
+import java.util.Collections;
+</code></pre></div>
+                    </details>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="status-FAIL">FAIL</td>
+                <td>Test failed</td>
+                <td>1</td>
+                <td>java</td>
+                <td>
+                    <details>
+                        <summary>View Full Code</summary>
+                        <pre><code><span class="diff-unchanged">  package org.springframework.samples.petclinic.owner;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;</span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;</span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;</span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">  import org.junit.Before;</span>
+<span class="diff-unchanged">  import org.junit.Test;</span>
+<span class="diff-unchanged">  import org.junit.runner.RunWith;</span>
+<span class="diff-unchanged">  import org.springframework.beans.factory.annotation.Autowired;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.mock.mockito.MockBean;</span>
+<span class="diff-unchanged">  import org.springframework.test.context.junit4.SpringRunner;</span>
+<span class="diff-unchanged">  import org.springframework.test.web.servlet.MockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-added">+ import static org.mockito.Mockito.when;</span>
+<span class="diff-added">+ import java.util.Collections;</span>
+<span class="diff-unchanged">  /**</span>
+<span class="diff-unchanged">   * Reduced test class for {@link OwnerController}</span>
+<span class="diff-unchanged">   */</span>
+<span class="diff-unchanged">  @RunWith(SpringRunner.class)</span>
+<span class="diff-unchanged">  @WebMvcTest(OwnerController.class)</span>
+<span class="diff-unchanged">  public class OwnerControllerTests {</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      private static final int TEST_OWNER_ID = 1;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Autowired</span>
+<span class="diff-unchanged">      private MockMvc mockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @MockBean</span>
+<span class="diff-unchanged">      private OwnerRepository owners;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Before</span>
+<span class="diff-unchanged">      public void setup() {</span>
+<span class="diff-unchanged">          // Kein Setup für Owner erforderlich</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Test</span>
+<span class="diff-unchanged">      public void testInitCreationForm() throws Exception {</span>
+<span class="diff-unchanged">          mockMvc.perform(get("/owners/new"))</span>
+<span class="diff-unchanged">              .andExpect(status().isOk())</span>
+<span class="diff-unchanged">              .andExpect(view().name("owners/createOrUpdateOwnerForm"));</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Test</span>
+<span class="diff-unchanged">      public void testProcessCreationFormSuccess() throws Exception {</span>
+<span class="diff-unchanged">          mockMvc.perform(post("/owners/new")</span>
+<span class="diff-unchanged">              .param("firstName", "Joe")</span>
+<span class="diff-unchanged">              .param("lastName", "Bloggs")</span>
+<span class="diff-unchanged">              .param("address", "123 Caramel Street")</span>
+<span class="diff-unchanged">              .param("city", "London")</span>
+<span class="diff-unchanged">              .param("telephone", "01316761638")</span>
+<span class="diff-unchanged">          )</span>
+<span class="diff-unchanged">              .andExpect(status().is3xxRedirection());</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-added">+     Owner owner = new Owner();</span>
+<span class="diff-added">+     owner.setId(TEST_OWNER_ID);</span>
+<span class="diff-added">+     when(owners.findByLastName("Bloggs")).thenReturn(Collections.singletonList(owner));</span>
+<span class="diff-added">+     mockMvc.perform(get("/owners")</span>
+<span class="diff-added">+         .param("lastName", "Bloggs")</span>
+<span class="diff-added">+     )</span>
+<span class="diff-added">+         .andExpect(status().is3xxRedirection())</span>
+<span class="diff-added">+         .andExpect(view().name("redirect:/owners/" + TEST_OWNER_ID));</span>
+<span class="diff-added">+ </span>
+<span class="diff-added">+ </span>
+<span class="diff-unchanged">  }</span></code></pre>
+                    </details>
+                </td>
+                <td>
+                    <details>
+                        <summary>View More</summary>
+                        <div><strong>STDERR:</strong> <pre><code class="language-java">Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:59: error: <identifier> expected
+    owner.setId(TEST_OWNER_ID);
+               ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:59: error: <identifier> expected
+    owner.setId(TEST_OWNER_ID);
+                             ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:60: error: invalid method declaration; return type required
+    when(owners.findByLastName("Bloggs")).thenReturn(Collections.singletonList(owner));
+    ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:60: error: <identifier> expected
+    when(owners.findByLastName("Bloggs")).thenReturn(Collections.singletonList(owner));
+                              ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:61: error: <identifier> expected
+    mockMvc.perform(get("/owners")
+                   ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:61: error: <identifier> expected
+    mockMvc.perform(get("/owners")
+                       ^
+6 errors
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileTestJava'.
+> Compilation failed; see the compiler output below.
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:59: error: <identifier> expected
+      owner.setId(TEST_OWNER_ID);
+                 ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:59: error: <identifier> expected
+      owner.setId(TEST_OWNER_ID);
+                               ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:60: error: <identifier> expected
+      when(owners.findByLastName("Bloggs")).thenReturn(Collections.singletonList(owner));
+                                ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:61: error: <identifier> expected
+      mockMvc.perform(get("/owners")
+                     ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:61: error: <identifier> expected
+      mockMvc.perform(get("/owners")
+                         ^/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:60: error: invalid method declaration; return type required
+      when(owners.findByLastName("Bloggs")).thenReturn(Collections.singletonList(owner));
+      ^
+  6 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights.
+
+BUILD FAILED in 4s
+</code></pre></div>
+                        <div><strong>STDOUT:</strong> <pre><code class="language-java">> Task :clean
+
+> Task :compileJava
+
+> Task :processResources
+> Task :classes
+> Task :bootJarMainClassName
+> Task :bootJar
+> Task :jar
+> Task :assemble
+
+> Task :compileTestJava FAILED
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/Samples/Qodo-Cover/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.12/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+7 actionable tasks: 7 executed
+</code></pre></div>
+                        <div><strong>Test Code:</strong> <pre><code class="language-java">Owner owner = new Owner();
+owner.setId(TEST_OWNER_ID);
+when(owners.findByLastName("Bloggs")).thenReturn(Collections.singletonList(owner));
+mockMvc.perform(get("/owners")
+    .param("lastName", "Bloggs")
+)
+    .andExpect(status().is3xxRedirection())
+    .andExpect(view().name("redirect:/owners/" + TEST_OWNER_ID));
+</code></pre></div>
+                        <div><strong>Imports:</strong> <pre><code class="language-java">import static org.mockito.Mockito.when;
+import java.util.Collections;
+</code></pre></div>
+                    </details>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="status-FAIL">FAIL</td>
+                <td>Test failed</td>
+                <td>1</td>
+                <td>java</td>
+                <td>
+                    <details>
+                        <summary>View Full Code</summary>
+                        <pre><code><span class="diff-unchanged">  package org.springframework.samples.petclinic.owner;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;</span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;</span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;</span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">  import org.junit.Before;</span>
+<span class="diff-unchanged">  import org.junit.Test;</span>
+<span class="diff-unchanged">  import org.junit.runner.RunWith;</span>
+<span class="diff-unchanged">  import org.springframework.beans.factory.annotation.Autowired;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.mock.mockito.MockBean;</span>
+<span class="diff-unchanged">  import org.springframework.test.context.junit4.SpringRunner;</span>
+<span class="diff-unchanged">  import org.springframework.test.web.servlet.MockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-added">+ import static org.mockito.Mockito.when;</span>
+<span class="diff-added">+ import java.util.Arrays;</span>
+<span class="diff-unchanged">  /**</span>
+<span class="diff-unchanged">   * Reduced test class for {@link OwnerController}</span>
+<span class="diff-unchanged">   */</span>
+<span class="diff-unchanged">  @RunWith(SpringRunner.class)</span>
+<span class="diff-unchanged">  @WebMvcTest(OwnerController.class)</span>
+<span class="diff-unchanged">  public class OwnerControllerTests {</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      private static final int TEST_OWNER_ID = 1;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Autowired</span>
+<span class="diff-unchanged">      private MockMvc mockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @MockBean</span>
+<span class="diff-unchanged">      private OwnerRepository owners;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Before</span>
+<span class="diff-unchanged">      public void setup() {</span>
+<span class="diff-unchanged">          // Kein Setup für Owner erforderlich</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Test</span>
+<span class="diff-unchanged">      public void testInitCreationForm() throws Exception {</span>
+<span class="diff-unchanged">          mockMvc.perform(get("/owners/new"))</span>
+<span class="diff-unchanged">              .andExpect(status().isOk())</span>
+<span class="diff-unchanged">              .andExpect(view().name("owners/createOrUpdateOwnerForm"));</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Test</span>
+<span class="diff-unchanged">      public void testProcessCreationFormSuccess() throws Exception {</span>
+<span class="diff-unchanged">          mockMvc.perform(post("/owners/new")</span>
+<span class="diff-unchanged">              .param("firstName", "Joe")</span>
+<span class="diff-unchanged">              .param("lastName", "Bloggs")</span>
+<span class="diff-unchanged">              .param("address", "123 Caramel Street")</span>
+<span class="diff-unchanged">              .param("city", "London")</span>
+<span class="diff-unchanged">              .param("telephone", "01316761638")</span>
+<span class="diff-unchanged">          )</span>
+<span class="diff-unchanged">              .andExpect(status().is3xxRedirection());</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-added">+     Owner owner1 = new Owner();</span>
+<span class="diff-added">+     owner1.setId(1);</span>
+<span class="diff-added">+     Owner owner2 = new Owner();</span>
+<span class="diff-added">+     owner2.setId(2);</span>
+<span class="diff-added">+     when(owners.findByLastName("Smith")).thenReturn(Arrays.asList(owner1, owner2));</span>
+<span class="diff-added">+     mockMvc.perform(get("/owners")</span>
+<span class="diff-added">+         .param("lastName", "Smith")</span>
+<span class="diff-added">+     )</span>
+<span class="diff-added">+         .andExpect(status().isOk())</span>
+<span class="diff-added">+         .andExpect(view().name("owners/ownersList"));</span>
+<span class="diff-added">+ </span>
+<span class="diff-added">+ </span>
+<span class="diff-unchanged">  }</span></code></pre>
+                    </details>
+                </td>
+                <td>
+                    <details>
+                        <summary>View More</summary>
+                        <div><strong>STDERR:</strong> <pre><code class="language-java">Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:59: error: <identifier> expected
+    owner1.setId(1);
+                ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:59: error: illegal start of type
+    owner1.setId(1);
+                 ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:61: error: <identifier> expected
+    owner2.setId(2);
+                ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:61: error: illegal start of type
+    owner2.setId(2);
+                 ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:62: error: invalid method declaration; return type required
+    when(owners.findByLastName("Smith")).thenReturn(Arrays.asList(owner1, owner2));
+    ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:62: error: <identifier> expected
+    when(owners.findByLastName("Smith")).thenReturn(Arrays.asList(owner1, owner2));
+                              ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:63: error: <identifier> expected
+    mockMvc.perform(get("/owners")
+                   ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:63: error: <identifier> expected
+    mockMvc.perform(get("/owners")
+                       ^
+8 errors
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileTestJava'.
+> Compilation failed; see the compiler output below.
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:59: error: <identifier> expected
+      owner1.setId(1);
+                  ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:61: error: <identifier> expected
+      owner2.setId(2);
+                  ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:62: error: <identifier> expected
+      when(owners.findByLastName("Smith")).thenReturn(Arrays.asList(owner1, owner2));
+                                ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:63: error: <identifier> expected
+      mockMvc.perform(get("/owners")
+                     ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:63: error: <identifier> expected
+      mockMvc.perform(get("/owners")
+                         ^/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:59: error: illegal start of type
+      owner1.setId(1);
+                   ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:61: error: illegal start of type
+      owner2.setId(2);
+                   ^/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:62: error: invalid method declaration; return type required
+      when(owners.findByLastName("Smith")).thenReturn(Arrays.asList(owner1, owner2));
+      ^
+  8 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights.
+
+BUILD FAILED in 4s
+</code></pre></div>
+                        <div><strong>STDOUT:</strong> <pre><code class="language-java">> Task :clean
+
+> Task :compileJava
+
+> Task :processResources
+> Task :classes
+> Task :bootJarMainClassName
+> Task :bootJar
+> Task :jar
+> Task :assemble
+
+> Task :compileTestJava FAILED
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/Samples/Qodo-Cover/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.12/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+7 actionable tasks: 7 executed
+</code></pre></div>
+                        <div><strong>Test Code:</strong> <pre><code class="language-java">Owner owner1 = new Owner();
+owner1.setId(1);
+Owner owner2 = new Owner();
+owner2.setId(2);
+when(owners.findByLastName("Smith")).thenReturn(Arrays.asList(owner1, owner2));
+mockMvc.perform(get("/owners")
+    .param("lastName", "Smith")
+)
+    .andExpect(status().isOk())
+    .andExpect(view().name("owners/ownersList"));
+</code></pre></div>
+                        <div><strong>Imports:</strong> <pre><code class="language-java">import static org.mockito.Mockito.when;
+import java.util.Arrays;
+</code></pre></div>
+                    </details>
+                </td>
+            </tr>
+            
+        </table>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
+    </body>
+    </html>
+    
