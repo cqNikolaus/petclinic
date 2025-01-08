@@ -1,0 +1,18 @@
+# Gradle
+.gradle/
+build/
+
+# Weitere generierte Dateien ignorieren
+*.class
+*.jar
+*.war
+*.ear
+*.log
+*.tmp
+*.bin
+
+# IntelliJ IDEA oder Eclipse spezifisch, falls genutzt
+*.iml
+.idea/
+*.project
+*.classpath
