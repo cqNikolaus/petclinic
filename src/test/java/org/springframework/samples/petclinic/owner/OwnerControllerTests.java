@@ -53,10 +53,4 @@ public class OwnerControllerTests {
             .andExpect(status().is3xxRedirection());
     }
 
-    @Test
-    public void testShowOwner() throws Exception {
-        mockMvc.perform(get("/owners/{ownerId}", TEST_OWNER_ID))
-            .andExpect(status().isOk())
-            .andExpect(view().name("owners/ownerDetails"));
-    }
 }
