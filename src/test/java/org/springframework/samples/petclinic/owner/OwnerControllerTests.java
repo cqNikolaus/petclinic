@@ -17,7 +17,7 @@ public class OwnerControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
-    @Mock
+    @MockBean
     private OwnerRepository ownerRepository;
 
     @Before
