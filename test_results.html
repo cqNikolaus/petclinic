@@ -3688,6 +3688,494 @@ public void testShowOwner() throws Exception {
                 </td>
             </tr>
             
+            <tr>
+                <td class="status-FAIL">FAIL</td>
+                <td>Test failed</td>
+                <td>1</td>
+                <td>java</td>
+                <td>
+                    <details>
+                        <summary>View Full Code</summary>
+                        <pre><code><span class="diff-unchanged">  </span>
+<span class="diff-added">+ import static org.junit.jupiter.api.Assertions.*;</span>
+<span class="diff-added">+ import org.junit.jupiter.api.Test;</span>
+<span class="diff-added">+ import java.util.HashMap;</span>
+<span class="diff-added">+ </span>
+<span class="diff-added">+ </span>
+<span class="diff-added">+ @Test</span>
+<span class="diff-added">+ public void testInitCreationForm() {</span>
+<span class="diff-added">+     Map<String, Object> model = new HashMap<>();</span>
+<span class="diff-added">+     String view = ownerController.initCreationForm(model);</span>
+<span class="diff-added">+     </span>
+<span class="diff-added">+     assertEquals("owners/createOrUpdateOwnerForm", view);</span>
+<span class="diff-added">+     assertTrue(model.containsKey("owner"));</span>
+<span class="diff-added">+     assertNotNull(model.get("owner"));</span>
+<span class="diff-added">+ }</span></code></pre>
+                    </details>
+                </td>
+                <td>
+                    <details>
+                        <summary>View More</summary>
+                        <div><strong>STDERR:</strong> <pre><code class="language-java">Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:8: error: class, interface, or enum expected
+public void testInitCreationForm() {
+       ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:10: error: class, interface, or enum expected
+    String view = ownerController.initCreationForm(model);
+    ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:12: error: class, interface, or enum expected
+    assertEquals("owners/createOrUpdateOwnerForm", view);
+    ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:13: error: class, interface, or enum expected
+    assertTrue(model.containsKey("owner"));
+    ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:14: error: class, interface, or enum expected
+    assertNotNull(model.get("owner"));
+    ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:15: error: class, interface, or enum expected
+}
+^
+6 errors
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileTestJava'.
+> Compilation failed; see the compiler output below.
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:8: error: class, interface, or enum expected
+  public void testInitCreationForm() {
+         ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:10: error: class, interface, or enum expected
+      String view = ownerController.initCreationForm(model);
+      ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:12: error: class, interface, or enum expected
+      assertEquals("owners/createOrUpdateOwnerForm", view);
+      ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:13: error: class, interface, or enum expected
+      assertTrue(model.containsKey("owner"));
+      ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:14: error: class, interface, or enum expected
+      assertNotNull(model.get("owner"));
+      ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:15: error: class, interface, or enum expected
+  }
+  ^
+  6 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights.
+
+BUILD FAILED in 5s
+</code></pre></div>
+                        <div><strong>STDOUT:</strong> <pre><code class="language-java">> Task :clean
+
+> Task :compileJava
+
+> Task :processResources
+> Task :classes
+
+> Task :compileTestJava FAILED
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/Samples/Qodo-Cover/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.12/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+4 actionable tasks: 4 executed
+</code></pre></div>
+                        <div><strong>Test Code:</strong> <pre><code class="language-java">@Test
+public void testInitCreationForm() {
+    Map<String, Object> model = new HashMap<>();
+    String view = ownerController.initCreationForm(model);
+    
+    assertEquals("owners/createOrUpdateOwnerForm", view);
+    assertTrue(model.containsKey("owner"));
+    assertNotNull(model.get("owner"));
+}
+</code></pre></div>
+                        <div><strong>Imports:</strong> <pre><code class="language-java">import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import java.util.HashMap;
+</code></pre></div>
+                    </details>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="status-FAIL">FAIL</td>
+                <td>Test failed</td>
+                <td>1</td>
+                <td>java</td>
+                <td>
+                    <details>
+                        <summary>View Full Code</summary>
+                        <pre><code><span class="diff-unchanged">  </span>
+<span class="diff-added">+ import org.springframework.validation.MapBindingResult;</span>
+<span class="diff-added">+ </span>
+<span class="diff-added">+ </span>
+<span class="diff-added">+ @Test</span>
+<span class="diff-added">+ public void testProcessCreationFormValid() {</span>
+<span class="diff-added">+     Owner owner = new Owner();</span>
+<span class="diff-added">+     owner.setId(1);</span>
+<span class="diff-added">+     BindingResult result = new MapBindingResult(new HashMap<>(), "owner");</span>
+<span class="diff-added">+     </span>
+<span class="diff-added">+     String view = ownerController.processCreationForm(owner, result);</span>
+<span class="diff-added">+     </span>
+<span class="diff-added">+     assertEquals("redirect:/owners/1", view);</span>
+<span class="diff-added">+ }</span></code></pre>
+                    </details>
+                </td>
+                <td>
+                    <details>
+                        <summary>View More</summary>
+                        <div><strong>STDERR:</strong> <pre><code class="language-java">Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:6: error: class, interface, or enum expected
+public void testProcessCreationFormValid() {
+       ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:8: error: class, interface, or enum expected
+    owner.setId(1);
+    ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:9: error: class, interface, or enum expected
+    BindingResult result = new MapBindingResult(new HashMap<>(), "owner");
+    ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:11: error: class, interface, or enum expected
+    String view = ownerController.processCreationForm(owner, result);
+    ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:13: error: class, interface, or enum expected
+    assertEquals("redirect:/owners/1", view);
+    ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:14: error: class, interface, or enum expected
+}
+^
+6 errors
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileTestJava'.
+> Compilation failed; see the compiler output below.
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:6: error: class, interface, or enum expected
+  public void testProcessCreationFormValid() {
+         ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:8: error: class, interface, or enum expected
+      owner.setId(1);
+      ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:9: error: class, interface, or enum expected
+      BindingResult result = new MapBindingResult(new HashMap<>(), "owner");
+      ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:11: error: class, interface, or enum expected
+      String view = ownerController.processCreationForm(owner, result);
+      ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:13: error: class, interface, or enum expected
+      assertEquals("redirect:/owners/1", view);
+      ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:14: error: class, interface, or enum expected
+  }
+  ^
+  6 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights.
+
+BUILD FAILED in 4s
+</code></pre></div>
+                        <div><strong>STDOUT:</strong> <pre><code class="language-java">> Task :clean
+
+> Task :compileJava
+
+> Task :processResources
+> Task :classes
+
+> Task :compileTestJava FAILED
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/Samples/Qodo-Cover/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.12/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+4 actionable tasks: 4 executed
+</code></pre></div>
+                        <div><strong>Test Code:</strong> <pre><code class="language-java">@Test
+public void testProcessCreationFormValid() {
+    Owner owner = new Owner();
+    owner.setId(1);
+    BindingResult result = new MapBindingResult(new HashMap<>(), "owner");
+    
+    String view = ownerController.processCreationForm(owner, result);
+    
+    assertEquals("redirect:/owners/1", view);
+}
+</code></pre></div>
+                        <div><strong>Imports:</strong> <pre><code class="language-java">import org.springframework.validation.MapBindingResult;
+</code></pre></div>
+                    </details>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="status-FAIL">FAIL</td>
+                <td>Test failed</td>
+                <td>1</td>
+                <td>java</td>
+                <td>
+                    <details>
+                        <summary>View Full Code</summary>
+                        <pre><code><span class="diff-unchanged">  </span>
+<span class="diff-added">+ import org.springframework.validation.MapBindingResult;</span>
+<span class="diff-added">+ </span>
+<span class="diff-added">+ </span>
+<span class="diff-added">+ @Test</span>
+<span class="diff-added">+ public void testProcessCreationFormInvalid() {</span>
+<span class="diff-added">+     Owner owner = new Owner();</span>
+<span class="diff-added">+     BindingResult result = new MapBindingResult(new HashMap<>(), "owner");</span>
+<span class="diff-added">+     result.reject("error");</span>
+<span class="diff-added">+     </span>
+<span class="diff-added">+     String view = ownerController.processCreationForm(owner, result);</span>
+<span class="diff-added">+     </span>
+<span class="diff-added">+     assertEquals("owners/createOrUpdateOwnerForm", view);</span>
+<span class="diff-added">+ }</span></code></pre>
+                    </details>
+                </td>
+                <td>
+                    <details>
+                        <summary>View More</summary>
+                        <div><strong>STDERR:</strong> <pre><code class="language-java">Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:6: error: class, interface, or enum expected
+public void testProcessCreationFormInvalid() {
+       ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:8: error: class, interface, or enum expected
+    BindingResult result = new MapBindingResult(new HashMap<>(), "owner");
+    ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:9: error: class, interface, or enum expected
+    result.reject("error");
+    ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:11: error: class, interface, or enum expected
+    String view = ownerController.processCreationForm(owner, result);
+    ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:13: error: class, interface, or enum expected
+    assertEquals("owners/createOrUpdateOwnerForm", view);
+    ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:14: error: class, interface, or enum expected
+}
+^
+6 errors
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileTestJava'.
+> Compilation failed; see the compiler output below.
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:6: error: class, interface, or enum expected
+  public void testProcessCreationFormInvalid() {
+         ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:8: error: class, interface, or enum expected
+      BindingResult result = new MapBindingResult(new HashMap<>(), "owner");
+      ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:9: error: class, interface, or enum expected
+      result.reject("error");
+      ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:11: error: class, interface, or enum expected
+      String view = ownerController.processCreationForm(owner, result);
+      ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:13: error: class, interface, or enum expected
+      assertEquals("owners/createOrUpdateOwnerForm", view);
+      ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:14: error: class, interface, or enum expected
+  }
+  ^
+  6 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights.
+
+BUILD FAILED in 3s
+</code></pre></div>
+                        <div><strong>STDOUT:</strong> <pre><code class="language-java">> Task :clean
+
+> Task :compileJava
+
+> Task :processResources
+> Task :classes
+
+> Task :compileTestJava FAILED
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/Samples/Qodo-Cover/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.12/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+4 actionable tasks: 4 executed
+</code></pre></div>
+                        <div><strong>Test Code:</strong> <pre><code class="language-java">@Test
+public void testProcessCreationFormInvalid() {
+    Owner owner = new Owner();
+    BindingResult result = new MapBindingResult(new HashMap<>(), "owner");
+    result.reject("error");
+    
+    String view = ownerController.processCreationForm(owner, result);
+    
+    assertEquals("owners/createOrUpdateOwnerForm", view);
+}
+</code></pre></div>
+                        <div><strong>Imports:</strong> <pre><code class="language-java">import org.springframework.validation.MapBindingResult;
+</code></pre></div>
+                    </details>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="status-FAIL">FAIL</td>
+                <td>Test failed</td>
+                <td>1</td>
+                <td>java</td>
+                <td>
+                    <details>
+                        <summary>View Full Code</summary>
+                        <pre><code><span class="diff-unchanged">  </span>
+<span class="diff-added">+ import static org.mockito.Mockito.*;</span>
+<span class="diff-added">+ import java.util.Collections;</span>
+<span class="diff-added">+ import org.junit.jupiter.api.BeforeEach;</span>
+<span class="diff-added">+ import org.mockito.Mock;</span>
+<span class="diff-added">+ import org.mockito.MockitoAnnotations;</span>
+<span class="diff-added">+ </span>
+<span class="diff-added">+ </span>
+<span class="diff-added">+ @Test</span>
+<span class="diff-added">+ public void testProcessFindFormNoLastName() {</span>
+<span class="diff-added">+     Owner owner = new Owner();</span>
+<span class="diff-added">+     BindingResult result = new MapBindingResult(new HashMap<>(), "owner");</span>
+<span class="diff-added">+     Map<String, Object> model = new HashMap<>();</span>
+<span class="diff-added">+     </span>
+<span class="diff-added">+     when(ownerRepository.findByLastName("")).thenReturn(Collections.emptyList());</span>
+<span class="diff-added">+     </span>
+<span class="diff-added">+     String view = ownerController.processFindForm(owner, result, model);</span>
+<span class="diff-added">+     </span>
+<span class="diff-added">+     assertEquals("owners/findOwners", view);</span>
+<span class="diff-added">+     assertTrue(result.hasFieldErrors("lastName"));</span>
+<span class="diff-added">+ }</span></code></pre>
+                    </details>
+                </td>
+                <td>
+                    <details>
+                        <summary>View More</summary>
+                        <div><strong>STDERR:</strong> <pre><code class="language-java">Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:10: error: class, interface, or enum expected
+public void testProcessFindFormNoLastName() {
+       ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:12: error: class, interface, or enum expected
+    BindingResult result = new MapBindingResult(new HashMap<>(), "owner");
+    ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:13: error: class, interface, or enum expected
+    Map<String, Object> model = new HashMap<>();
+    ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:15: error: class, interface, or enum expected
+    when(ownerRepository.findByLastName("")).thenReturn(Collections.emptyList());
+    ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:17: error: class, interface, or enum expected
+    String view = ownerController.processFindForm(owner, result, model);
+    ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:19: error: class, interface, or enum expected
+    assertEquals("owners/findOwners", view);
+    ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:20: error: class, interface, or enum expected
+    assertTrue(result.hasFieldErrors("lastName"));
+    ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:21: error: class, interface, or enum expected
+}
+^
+8 errors
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileTestJava'.
+> Compilation failed; see the compiler output below.
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:10: error: class, interface, or enum expected
+  public void testProcessFindFormNoLastName() {
+         ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:12: error: class, interface, or enum expected
+      BindingResult result = new MapBindingResult(new HashMap<>(), "owner");
+      ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:13: error: class, interface, or enum expected
+      Map<String, Object> model = new HashMap<>();
+      ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:15: error: class, interface, or enum expected
+      when(ownerRepository.findByLastName("")).thenReturn(Collections.emptyList());
+      ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:17: error: class, interface, or enum expected
+      String view = ownerController.processFindForm(owner, result, model);
+      ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:19: error: class, interface, or enum expected
+      assertEquals("owners/findOwners", view);
+      ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:20: error: class, interface, or enum expected
+      assertTrue(result.hasFieldErrors("lastName"));
+      ^
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:21: error: class, interface, or enum expected
+  }
+  ^
+  8 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights.
+
+BUILD FAILED in 3s
+</code></pre></div>
+                        <div><strong>STDOUT:</strong> <pre><code class="language-java">> Task :clean
+
+> Task :compileJava
+
+> Task :processResources
+> Task :classes
+
+> Task :compileTestJava FAILED
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/Samples/Qodo-Cover/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.12/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+4 actionable tasks: 4 executed
+</code></pre></div>
+                        <div><strong>Test Code:</strong> <pre><code class="language-java">@Test
+public void testProcessFindFormNoLastName() {
+    Owner owner = new Owner();
+    BindingResult result = new MapBindingResult(new HashMap<>(), "owner");
+    Map<String, Object> model = new HashMap<>();
+    
+    when(ownerRepository.findByLastName("")).thenReturn(Collections.emptyList());
+    
+    String view = ownerController.processFindForm(owner, result, model);
+    
+    assertEquals("owners/findOwners", view);
+    assertTrue(result.hasFieldErrors("lastName"));
+}
+</code></pre></div>
+                        <div><strong>Imports:</strong> <pre><code class="language-java">import static org.mockito.Mockito.*;
+import java.util.Collections;
+import org.junit.jupiter.api.BeforeEach;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+</code></pre></div>
+                    </details>
+                </td>
+            </tr>
+            
         </table>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
     </body>
