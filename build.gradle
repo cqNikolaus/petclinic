@@ -14,21 +14,35 @@ repositories {
 }
 
 dependencies {
+    // Spring Boot Starter
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-cache'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+    // DB
     runtimeOnly 'org.hsqldb:hsqldb'
     runtimeOnly 'mysql:mysql-connector-java:8.0.33'
+
+    // Cache
     implementation 'javax.cache:cache-api'
     implementation 'org.ehcache:ehcache'
-    implementation 'org.webjars:webjars-locator'
+
+    // WebJars (+ Versionen)
+    implementation 'org.webjars:webjars-locator:0.48'
     implementation 'org.webjars:jquery:2.2.4'
     implementation 'org.webjars:jquery-ui:1.11.4'
     implementation 'org.webjars:bootstrap:3.3.6'
+
+    // Devtools
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // Hibernate Validator (optional, wenn du direkt NotEmpty, etc. benötigst)
+    // oft reicht auch: org.springframework.boot:spring-boot-starter-validation
     implementation 'org.hibernate.validator:hibernate-validator:6.2.5.Final'
+
+    // Tests
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:4.11.0'
@@ -45,6 +59,7 @@ jacocoTestReport {
     }
 }
 
+// Test mit JUnit 4
 test {
-    useJUnit() 
+    useJUnit()
 }
