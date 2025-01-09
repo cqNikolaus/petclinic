@@ -4176,6 +4176,1139 @@ import org.mockito.MockitoAnnotations;
                 </td>
             </tr>
             
+            <tr>
+                <td class="status-FAIL">FAIL</td>
+                <td>Coverage did not increase. Maybe the test did run but did not increase coverage, or maybe the test execution was skipped due to some problem</td>
+                <td>0</td>
+                <td>java</td>
+                <td>
+                    <details>
+                        <summary>View Full Code</summary>
+                        <pre><code><span class="diff-unchanged">  package org.springframework.samples.petclinic.owner;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">  import org.junit.Before;</span>
+<span class="diff-unchanged">  import org.junit.Test;</span>
+<span class="diff-unchanged">  import org.junit.runner.RunWith;</span>
+<span class="diff-unchanged">  import org.mockito.Mock;</span>
+<span class="diff-unchanged">  import org.mockito.MockitoAnnotations;</span>
+<span class="diff-unchanged">  import org.springframework.beans.factory.annotation.Autowired;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.mock.mockito.MockBean;</span>
+<span class="diff-unchanged">  import org.springframework.test.context.junit4.SpringRunner;</span>
+<span class="diff-unchanged">  import org.springframework.test.web.servlet.MockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-added">+ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;</span>
+<span class="diff-added">+ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;</span>
+<span class="diff-added">+ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;</span>
+<span class="diff-added">+ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;</span>
+<span class="diff-unchanged">  @RunWith(SpringRunner.class)</span>
+<span class="diff-unchanged">  @WebMvcTest(OwnerController.class)</span>
+<span class="diff-unchanged">  public class OwnerControllerTests {</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Autowired</span>
+<span class="diff-unchanged">      private MockMvc mockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @MockBean</span>
+<span class="diff-unchanged">      private OwnerRepository ownerRepository;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Before</span>
+<span class="diff-unchanged">      public void setup() {</span>
+<span class="diff-unchanged">          MockitoAnnotations.initMocks(this);</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Test</span>
+<span class="diff-unchanged">      public void dummyTest() {</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-added">+ </span>
+<span class="diff-added">+     @Test</span>
+<span class="diff-added">+     public void test_init_creation_form() throws Exception {</span>
+<span class="diff-added">+         mockMvc.perform(get("/owners/new"))</span>
+<span class="diff-added">+             .andExpect(status().isOk())</span>
+<span class="diff-added">+             .andExpect(view().name("owners/createOrUpdateOwnerForm"))</span>
+<span class="diff-added">+             .andExpect(model().attributeExists("owner"));</span>
+<span class="diff-added">+     }</span>
+<span class="diff-added">+ </span>
+<span class="diff-unchanged">  }</span></code></pre>
+                    </details>
+                </td>
+                <td>
+                    <details>
+                        <summary>View More</summary>
+                        <div><strong>STDERR:</strong> <pre><code class="language-java">Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+</code></pre></div>
+                        <div><strong>STDOUT:</strong> <pre><code class="language-java">> Task :clean
+
+> Task :compileJava
+
+> Task :processResources
+> Task :classes
+
+> Task :compileTestJava
+
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+> Task :test
+> Task :jacocoTestReport
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/Samples/Qodo-Cover/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.12/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 27s
+6 actionable tasks: 6 executed
+</code></pre></div>
+                        <div><strong>Test Code:</strong> <pre><code class="language-java">@Test
+public void test_init_creation_form() throws Exception {
+    mockMvc.perform(get("/owners/new"))
+        .andExpect(status().isOk())
+        .andExpect(view().name("owners/createOrUpdateOwnerForm"))
+        .andExpect(model().attributeExists("owner"));
+}
+</code></pre></div>
+                        <div><strong>Imports:</strong> <pre><code class="language-java">import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+</code></pre></div>
+                    </details>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="status-FAIL">FAIL</td>
+                <td>Test failed</td>
+                <td>1</td>
+                <td>java</td>
+                <td>
+                    <details>
+                        <summary>View Full Code</summary>
+                        <pre><code><span class="diff-unchanged">  package org.springframework.samples.petclinic.owner;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">  import org.junit.Before;</span>
+<span class="diff-unchanged">  import org.junit.Test;</span>
+<span class="diff-unchanged">  import org.junit.runner.RunWith;</span>
+<span class="diff-unchanged">  import org.mockito.Mock;</span>
+<span class="diff-unchanged">  import org.mockito.MockitoAnnotations;</span>
+<span class="diff-unchanged">  import org.springframework.beans.factory.annotation.Autowired;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.mock.mockito.MockBean;</span>
+<span class="diff-unchanged">  import org.springframework.test.context.junit4.SpringRunner;</span>
+<span class="diff-unchanged">  import org.springframework.test.web.servlet.MockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-added">+ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;</span>
+<span class="diff-unchanged">  @RunWith(SpringRunner.class)</span>
+<span class="diff-unchanged">  @WebMvcTest(OwnerController.class)</span>
+<span class="diff-unchanged">  public class OwnerControllerTests {</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Autowired</span>
+<span class="diff-unchanged">      private MockMvc mockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @MockBean</span>
+<span class="diff-unchanged">      private OwnerRepository ownerRepository;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Before</span>
+<span class="diff-unchanged">      public void setup() {</span>
+<span class="diff-unchanged">          MockitoAnnotations.initMocks(this);</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Test</span>
+<span class="diff-unchanged">      public void dummyTest() {</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-added">+ </span>
+<span class="diff-added">+     @Test</span>
+<span class="diff-added">+     public void test_process_creation_form_with_errors() throws Exception {</span>
+<span class="diff-added">+         mockMvc.perform(post("/owners/new")</span>
+<span class="diff-added">+             .param("firstName", "")</span>
+<span class="diff-added">+             .param("lastName", "Doe"))</span>
+<span class="diff-added">+             .andExpect(status().isOk())</span>
+<span class="diff-added">+             .andExpect(view().name("owners/createOrUpdateOwnerForm"));</span>
+<span class="diff-added">+     }</span>
+<span class="diff-added">+ </span>
+<span class="diff-unchanged">  }</span></code></pre>
+                    </details>
+                </td>
+                <td>
+                    <details>
+                        <summary>View More</summary>
+                        <div><strong>STDERR:</strong> <pre><code class="language-java">Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:39: error: cannot find symbol
+            .andExpect(status().isOk())
+                       ^
+  symbol:   method status()
+  location: class OwnerControllerTests
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:40: error: cannot find symbol
+            .andExpect(view().name("owners/createOrUpdateOwnerForm"));
+                       ^
+  symbol:   method view()
+  location: class OwnerControllerTests
+Note: /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+2 errors
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileTestJava'.
+> Compilation failed; see the compiler output below.
+  Note: Recompile with -Xlint:deprecation for details./var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:39: error: cannot find symbol
+              .andExpect(status().isOk())
+                         ^
+    symbol:   method status()
+    location: class OwnerControllerTests
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:40: error: cannot find symbol
+              .andExpect(view().name("owners/createOrUpdateOwnerForm"));
+                         ^
+    symbol:   method view()
+    location: class OwnerControllerTestsNote: /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java uses or overrides a deprecated API.
+  2 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights.
+
+BUILD FAILED in 4s
+</code></pre></div>
+                        <div><strong>STDOUT:</strong> <pre><code class="language-java">> Task :clean
+
+> Task :compileJava
+
+> Task :processResources
+> Task :classes
+
+> Task :compileTestJava FAILED
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/Samples/Qodo-Cover/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.12/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+4 actionable tasks: 4 executed
+</code></pre></div>
+                        <div><strong>Test Code:</strong> <pre><code class="language-java">@Test
+public void test_process_creation_form_with_errors() throws Exception {
+    mockMvc.perform(post("/owners/new")
+        .param("firstName", "")
+        .param("lastName", "Doe"))
+        .andExpect(status().isOk())
+        .andExpect(view().name("owners/createOrUpdateOwnerForm"));
+}
+</code></pre></div>
+                        <div><strong>Imports:</strong> <pre><code class="language-java">import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+</code></pre></div>
+                    </details>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="status-FAIL">FAIL</td>
+                <td>Test failed</td>
+                <td>1</td>
+                <td>java</td>
+                <td>
+                    <details>
+                        <summary>View Full Code</summary>
+                        <pre><code><span class="diff-unchanged">  package org.springframework.samples.petclinic.owner;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">  import org.junit.Before;</span>
+<span class="diff-unchanged">  import org.junit.Test;</span>
+<span class="diff-unchanged">  import org.junit.runner.RunWith;</span>
+<span class="diff-unchanged">  import org.mockito.Mock;</span>
+<span class="diff-unchanged">  import org.mockito.MockitoAnnotations;</span>
+<span class="diff-unchanged">  import org.springframework.beans.factory.annotation.Autowired;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.mock.mockito.MockBean;</span>
+<span class="diff-unchanged">  import org.springframework.test.context.junit4.SpringRunner;</span>
+<span class="diff-unchanged">  import org.springframework.test.web.servlet.MockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-added">+ import static org.mockito.ArgumentMatchers.any;</span>
+<span class="diff-added">+ import static org.mockito.Mockito.when;</span>
+<span class="diff-added">+ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;</span>
+<span class="diff-unchanged">  @RunWith(SpringRunner.class)</span>
+<span class="diff-unchanged">  @WebMvcTest(OwnerController.class)</span>
+<span class="diff-unchanged">  public class OwnerControllerTests {</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Autowired</span>
+<span class="diff-unchanged">      private MockMvc mockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @MockBean</span>
+<span class="diff-unchanged">      private OwnerRepository ownerRepository;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Before</span>
+<span class="diff-unchanged">      public void setup() {</span>
+<span class="diff-unchanged">          MockitoAnnotations.initMocks(this);</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Test</span>
+<span class="diff-unchanged">      public void dummyTest() {</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-added">+ </span>
+<span class="diff-added">+     @Test</span>
+<span class="diff-added">+     public void test_process_creation_form_success() throws Exception {</span>
+<span class="diff-added">+         Owner owner = new Owner();</span>
+<span class="diff-added">+         owner.setId(1);</span>
+<span class="diff-added">+         when(ownerRepository.save(any(Owner.class))).thenReturn(owner);</span>
+<span class="diff-added">+     </span>
+<span class="diff-added">+         mockMvc.perform(post("/owners/new")</span>
+<span class="diff-added">+             .param("firstName", "John")</span>
+<span class="diff-added">+             .param("lastName", "Doe"))</span>
+<span class="diff-added">+             .andExpect(status().is3xxRedirection())</span>
+<span class="diff-added">+             .andExpect(redirectedUrl("/owners/1"));</span>
+<span class="diff-added">+     }</span>
+<span class="diff-added">+ </span>
+<span class="diff-unchanged">  }</span></code></pre>
+                    </details>
+                </td>
+                <td>
+                    <details>
+                        <summary>View More</summary>
+                        <div><strong>STDERR:</strong> <pre><code class="language-java">Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:40: error: 'void' type not allowed here
+        when(ownerRepository.save(any(Owner.class))).thenReturn(owner);
+                                 ^
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:42: error: cannot find symbol
+        mockMvc.perform(post("/owners/new")
+                        ^
+  symbol:   method post(String)
+  location: class OwnerControllerTests
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:45: error: cannot find symbol
+            .andExpect(status().is3xxRedirection())
+                       ^
+  symbol:   method status()
+  location: class OwnerControllerTests
+Note: /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+3 errors
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileTestJava'.
+> Compilation failed; see the compiler output below.
+  Note: Recompile with -Xlint:deprecation for details./var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:42: error: cannot find symbol
+          mockMvc.perform(post("/owners/new")
+                          ^
+    symbol:   method post(String)
+    location: class OwnerControllerTests
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:45: error: cannot find symbol
+              .andExpect(status().is3xxRedirection())
+                         ^
+    symbol:   method status()
+    location: class OwnerControllerTestsNote: /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java uses or overrides a deprecated API./var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:40: error: 'void' type not allowed here
+          when(ownerRepository.save(any(Owner.class))).thenReturn(owner);
+                                   ^
+  3 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights.
+
+BUILD FAILED in 4s
+</code></pre></div>
+                        <div><strong>STDOUT:</strong> <pre><code class="language-java">> Task :clean
+
+> Task :compileJava
+
+> Task :processResources
+> Task :classes
+
+> Task :compileTestJava FAILED
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/Samples/Qodo-Cover/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.12/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+4 actionable tasks: 4 executed
+</code></pre></div>
+                        <div><strong>Test Code:</strong> <pre><code class="language-java">@Test
+public void test_process_creation_form_success() throws Exception {
+    Owner owner = new Owner();
+    owner.setId(1);
+    when(ownerRepository.save(any(Owner.class))).thenReturn(owner);
+
+    mockMvc.perform(post("/owners/new")
+        .param("firstName", "John")
+        .param("lastName", "Doe"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(redirectedUrl("/owners/1"));
+}
+</code></pre></div>
+                        <div><strong>Imports:</strong> <pre><code class="language-java">import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+</code></pre></div>
+                    </details>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="status-FAIL">FAIL</td>
+                <td>Test failed</td>
+                <td>1</td>
+                <td>java</td>
+                <td>
+                    <details>
+                        <summary>View Full Code</summary>
+                        <pre><code><span class="diff-unchanged">  package org.springframework.samples.petclinic.owner;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">  import org.junit.Before;</span>
+<span class="diff-unchanged">  import org.junit.Test;</span>
+<span class="diff-unchanged">  import org.junit.runner.RunWith;</span>
+<span class="diff-unchanged">  import org.mockito.Mock;</span>
+<span class="diff-unchanged">  import org.mockito.MockitoAnnotations;</span>
+<span class="diff-unchanged">  import org.springframework.beans.factory.annotation.Autowired;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.mock.mockito.MockBean;</span>
+<span class="diff-unchanged">  import org.springframework.test.context.junit4.SpringRunner;</span>
+<span class="diff-unchanged">  import org.springframework.test.web.servlet.MockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">  @RunWith(SpringRunner.class)</span>
+<span class="diff-unchanged">  @WebMvcTest(OwnerController.class)</span>
+<span class="diff-unchanged">  public class OwnerControllerTests {</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Autowired</span>
+<span class="diff-unchanged">      private MockMvc mockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @MockBean</span>
+<span class="diff-unchanged">      private OwnerRepository ownerRepository;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Before</span>
+<span class="diff-unchanged">      public void setup() {</span>
+<span class="diff-unchanged">          MockitoAnnotations.initMocks(this);</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Test</span>
+<span class="diff-unchanged">      public void dummyTest() {</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-added">+ </span>
+<span class="diff-added">+     @Test</span>
+<span class="diff-added">+     public void test_init_update_owner_form() throws Exception {</span>
+<span class="diff-added">+         Owner owner = new Owner();</span>
+<span class="diff-added">+         owner.setId(1);</span>
+<span class="diff-added">+         when(ownerRepository.findById(1)).thenReturn(owner);</span>
+<span class="diff-added">+     </span>
+<span class="diff-added">+         mockMvc.perform(get("/owners/1/edit"))</span>
+<span class="diff-added">+             .andExpect(status().isOk())</span>
+<span class="diff-added">+             .andExpect(view().name("owners/createOrUpdateOwnerForm"))</span>
+<span class="diff-added">+             .andExpect(model().attributeExists("owner"));</span>
+<span class="diff-added">+     }</span>
+<span class="diff-added">+ </span>
+<span class="diff-unchanged">  }</span></code></pre>
+                    </details>
+                </td>
+                <td>
+                    <details>
+                        <summary>View More</summary>
+                        <div><strong>STDERR:</strong> <pre><code class="language-java">Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:37: error: cannot find symbol
+        when(ownerRepository.findById(1)).thenReturn(owner);
+        ^
+  symbol:   method when(Owner)
+  location: class OwnerControllerTests
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:39: error: cannot find symbol
+        mockMvc.perform(get("/owners/1/edit"))
+                        ^
+  symbol:   method get(String)
+  location: class OwnerControllerTests
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:40: error: cannot find symbol
+            .andExpect(status().isOk())
+                       ^
+  symbol:   method status()
+  location: class OwnerControllerTests
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:41: error: cannot find symbol
+            .andExpect(view().name("owners/createOrUpdateOwnerForm"))
+                       ^
+  symbol:   method view()
+  location: class OwnerControllerTests
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:42: error: cannot find symbol
+            .andExpect(model().attributeExists("owner"));
+                       ^
+  symbol:   method model()
+  location: class OwnerControllerTests
+Note: /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+5 errors
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileTestJava'.
+> Compilation failed; see the compiler output below.
+  Note: Recompile with -Xlint:deprecation for details./var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:37: error: cannot find symbol
+          when(ownerRepository.findById(1)).thenReturn(owner);
+          ^
+    symbol:   method when(Owner)
+    location: class OwnerControllerTests
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:39: error: cannot find symbol
+          mockMvc.perform(get("/owners/1/edit"))
+                          ^
+    symbol:   method get(String)
+    location: class OwnerControllerTests
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:40: error: cannot find symbol
+              .andExpect(status().isOk())
+                         ^
+    symbol:   method status()
+    location: class OwnerControllerTests
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:41: error: cannot find symbol
+              .andExpect(view().name("owners/createOrUpdateOwnerForm"))
+                         ^
+    symbol:   method view()
+    location: class OwnerControllerTests
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:42: error: cannot find symbol
+              .andExpect(model().attributeExists("owner"));
+                         ^
+    symbol:   method model()
+    location: class OwnerControllerTestsNote: /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java uses or overrides a deprecated API.
+  5 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights.
+
+BUILD FAILED in 4s
+</code></pre></div>
+                        <div><strong>STDOUT:</strong> <pre><code class="language-java">> Task :clean
+
+> Task :compileJava
+
+> Task :processResources
+> Task :classes
+
+> Task :compileTestJava FAILED
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/Samples/Qodo-Cover/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.12/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+4 actionable tasks: 4 executed
+</code></pre></div>
+                        <div><strong>Test Code:</strong> <pre><code class="language-java">@Test
+public void test_init_update_owner_form() throws Exception {
+    Owner owner = new Owner();
+    owner.setId(1);
+    when(ownerRepository.findById(1)).thenReturn(owner);
+
+    mockMvc.perform(get("/owners/1/edit"))
+        .andExpect(status().isOk())
+        .andExpect(view().name("owners/createOrUpdateOwnerForm"))
+        .andExpect(model().attributeExists("owner"));
+}
+</code></pre></div>
+                        <div><strong>Imports:</strong> <pre><code class="language-java">""
+</code></pre></div>
+                    </details>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="status-FAIL">FAIL</td>
+                <td>Coverage did not increase. Maybe the test did run but did not increase coverage, or maybe the test execution was skipped due to some problem</td>
+                <td>0</td>
+                <td>java</td>
+                <td>
+                    <details>
+                        <summary>View Full Code</summary>
+                        <pre><code><span class="diff-unchanged">  package org.springframework.samples.petclinic.owner;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">  import org.junit.Before;</span>
+<span class="diff-unchanged">  import org.junit.Test;</span>
+<span class="diff-unchanged">  import org.junit.runner.RunWith;</span>
+<span class="diff-unchanged">  import org.mockito.Mock;</span>
+<span class="diff-unchanged">  import org.mockito.MockitoAnnotations;</span>
+<span class="diff-unchanged">  import org.springframework.beans.factory.annotation.Autowired;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.mock.mockito.MockBean;</span>
+<span class="diff-unchanged">  import org.springframework.test.context.junit4.SpringRunner;</span>
+<span class="diff-unchanged">  import org.springframework.test.web.servlet.MockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-added">+ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;</span>
+<span class="diff-added">+ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;</span>
+<span class="diff-added">+ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;</span>
+<span class="diff-added">+ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;</span>
+<span class="diff-unchanged">  @RunWith(SpringRunner.class)</span>
+<span class="diff-unchanged">  @WebMvcTest(OwnerController.class)</span>
+<span class="diff-unchanged">  public class OwnerControllerTests {</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Autowired</span>
+<span class="diff-unchanged">      private MockMvc mockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @MockBean</span>
+<span class="diff-unchanged">      private OwnerRepository ownerRepository;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Before</span>
+<span class="diff-unchanged">      public void setup() {</span>
+<span class="diff-unchanged">          MockitoAnnotations.initMocks(this);</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Test</span>
+<span class="diff-unchanged">      public void dummyTest() {</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-added">+ </span>
+<span class="diff-added">+     @Test</span>
+<span class="diff-added">+     public void test_init_find_form() throws Exception {</span>
+<span class="diff-added">+         mockMvc.perform(get("/owners/find"))</span>
+<span class="diff-added">+             .andExpect(status().isOk())</span>
+<span class="diff-added">+             .andExpect(view().name("owners/findOwners"))</span>
+<span class="diff-added">+             .andExpect(model().attributeExists("owner"));</span>
+<span class="diff-added">+     }</span>
+<span class="diff-added">+ </span>
+<span class="diff-unchanged">  }</span></code></pre>
+                    </details>
+                </td>
+                <td>
+                    <details>
+                        <summary>View More</summary>
+                        <div><strong>STDERR:</strong> <pre><code class="language-java">Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+</code></pre></div>
+                        <div><strong>STDOUT:</strong> <pre><code class="language-java">> Task :clean
+
+> Task :compileJava
+
+> Task :processResources
+> Task :classes
+
+> Task :compileTestJava
+
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+> Task :test
+> Task :jacocoTestReport
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/Samples/Qodo-Cover/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.12/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 26s
+6 actionable tasks: 6 executed
+</code></pre></div>
+                        <div><strong>Test Code:</strong> <pre><code class="language-java">@Test
+public void test_init_find_form() throws Exception {
+    mockMvc.perform(get("/owners/find"))
+        .andExpect(status().isOk())
+        .andExpect(view().name("owners/findOwners"))
+        .andExpect(model().attributeExists("owner"));
+}
+</code></pre></div>
+                        <div><strong>Imports:</strong> <pre><code class="language-java">import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+</code></pre></div>
+                    </details>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="status-FAIL">FAIL</td>
+                <td>Test failed</td>
+                <td>1</td>
+                <td>java</td>
+                <td>
+                    <details>
+                        <summary>View Full Code</summary>
+                        <pre><code><span class="diff-unchanged">  package org.springframework.samples.petclinic.owner;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">  import org.junit.Before;</span>
+<span class="diff-unchanged">  import org.junit.Test;</span>
+<span class="diff-unchanged">  import org.junit.runner.RunWith;</span>
+<span class="diff-unchanged">  import org.mockito.Mock;</span>
+<span class="diff-unchanged">  import org.mockito.MockitoAnnotations;</span>
+<span class="diff-unchanged">  import org.springframework.beans.factory.annotation.Autowired;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.mock.mockito.MockBean;</span>
+<span class="diff-unchanged">  import org.springframework.test.context.junit4.SpringRunner;</span>
+<span class="diff-unchanged">  import org.springframework.test.web.servlet.MockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-added">+ import static org.mockito.Mockito.when;</span>
+<span class="diff-added">+ import java.util.Collections;</span>
+<span class="diff-unchanged">  @RunWith(SpringRunner.class)</span>
+<span class="diff-unchanged">  @WebMvcTest(OwnerController.class)</span>
+<span class="diff-unchanged">  public class OwnerControllerTests {</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Autowired</span>
+<span class="diff-unchanged">      private MockMvc mockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @MockBean</span>
+<span class="diff-unchanged">      private OwnerRepository ownerRepository;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Before</span>
+<span class="diff-unchanged">      public void setup() {</span>
+<span class="diff-unchanged">          MockitoAnnotations.initMocks(this);</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Test</span>
+<span class="diff-unchanged">      public void dummyTest() {</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-added">+ </span>
+<span class="diff-added">+     @Test</span>
+<span class="diff-added">+     public void test_process_find_form_no_owners() throws Exception {</span>
+<span class="diff-added">+         when(ownerRepository.findByLastName("NonExistent")).thenReturn(Collections.emptyList());</span>
+<span class="diff-added">+     </span>
+<span class="diff-added">+         mockMvc.perform(get("/owners")</span>
+<span class="diff-added">+             .param("lastName", "NonExistent"))</span>
+<span class="diff-added">+             .andExpect(status().isOk())</span>
+<span class="diff-added">+             .andExpect(view().name("owners/findOwners"))</span>
+<span class="diff-added">+             .andExpect(model().attributeHasFieldErrors("owner", "lastName"));</span>
+<span class="diff-added">+     }</span>
+<span class="diff-added">+ </span>
+<span class="diff-unchanged">  }</span></code></pre>
+                    </details>
+                </td>
+                <td>
+                    <details>
+                        <summary>View More</summary>
+                        <div><strong>STDERR:</strong> <pre><code class="language-java">Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:39: error: cannot find symbol
+        mockMvc.perform(get("/owners")
+                        ^
+  symbol:   method get(String)
+  location: class OwnerControllerTests
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:41: error: cannot find symbol
+            .andExpect(status().isOk())
+                       ^
+  symbol:   method status()
+  location: class OwnerControllerTests
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:42: error: cannot find symbol
+            .andExpect(view().name("owners/findOwners"))
+                       ^
+  symbol:   method view()
+  location: class OwnerControllerTests
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:43: error: cannot find symbol
+            .andExpect(model().attributeHasFieldErrors("owner", "lastName"));
+                       ^
+  symbol:   method model()
+  location: class OwnerControllerTests
+Note: /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+4 errors
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileTestJava'.
+> Compilation failed; see the compiler output below.
+  Note: Recompile with -Xlint:deprecation for details./var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:39: error: cannot find symbol
+          mockMvc.perform(get("/owners")
+                          ^
+    symbol:   method get(String)
+    location: class OwnerControllerTests
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:41: error: cannot find symbol
+              .andExpect(status().isOk())
+                         ^
+    symbol:   method status()
+    location: class OwnerControllerTests
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:42: error: cannot find symbol
+              .andExpect(view().name("owners/findOwners"))
+                         ^
+    symbol:   method view()
+    location: class OwnerControllerTests
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:43: error: cannot find symbol
+              .andExpect(model().attributeHasFieldErrors("owner", "lastName"));
+                         ^
+    symbol:   method model()
+    location: class OwnerControllerTestsNote: /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java uses or overrides a deprecated API.
+  4 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights.
+
+BUILD FAILED in 3s
+</code></pre></div>
+                        <div><strong>STDOUT:</strong> <pre><code class="language-java">> Task :clean
+
+> Task :compileJava
+
+> Task :processResources
+> Task :classes
+
+> Task :compileTestJava FAILED
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/Samples/Qodo-Cover/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.12/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+4 actionable tasks: 4 executed
+</code></pre></div>
+                        <div><strong>Test Code:</strong> <pre><code class="language-java">@Test
+public void test_process_find_form_no_owners() throws Exception {
+    when(ownerRepository.findByLastName("NonExistent")).thenReturn(Collections.emptyList());
+
+    mockMvc.perform(get("/owners")
+        .param("lastName", "NonExistent"))
+        .andExpect(status().isOk())
+        .andExpect(view().name("owners/findOwners"))
+        .andExpect(model().attributeHasFieldErrors("owner", "lastName"));
+}
+</code></pre></div>
+                        <div><strong>Imports:</strong> <pre><code class="language-java">import static org.mockito.Mockito.when;
+import java.util.Collections;
+</code></pre></div>
+                    </details>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="status-FAIL">FAIL</td>
+                <td>Test failed</td>
+                <td>1</td>
+                <td>java</td>
+                <td>
+                    <details>
+                        <summary>View Full Code</summary>
+                        <pre><code><span class="diff-unchanged">  package org.springframework.samples.petclinic.owner;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">  import org.junit.Before;</span>
+<span class="diff-unchanged">  import org.junit.Test;</span>
+<span class="diff-unchanged">  import org.junit.runner.RunWith;</span>
+<span class="diff-unchanged">  import org.mockito.Mock;</span>
+<span class="diff-unchanged">  import org.mockito.MockitoAnnotations;</span>
+<span class="diff-unchanged">  import org.springframework.beans.factory.annotation.Autowired;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.mock.mockito.MockBean;</span>
+<span class="diff-unchanged">  import org.springframework.test.context.junit4.SpringRunner;</span>
+<span class="diff-unchanged">  import org.springframework.test.web.servlet.MockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-added">+ import java.util.Arrays;</span>
+<span class="diff-unchanged">  @RunWith(SpringRunner.class)</span>
+<span class="diff-unchanged">  @WebMvcTest(OwnerController.class)</span>
+<span class="diff-unchanged">  public class OwnerControllerTests {</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Autowired</span>
+<span class="diff-unchanged">      private MockMvc mockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @MockBean</span>
+<span class="diff-unchanged">      private OwnerRepository ownerRepository;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Before</span>
+<span class="diff-unchanged">      public void setup() {</span>
+<span class="diff-unchanged">          MockitoAnnotations.initMocks(this);</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Test</span>
+<span class="diff-unchanged">      public void dummyTest() {</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-added">+ </span>
+<span class="diff-added">+     @Test</span>
+<span class="diff-added">+     public void test_process_find_form_multiple_owners() throws Exception {</span>
+<span class="diff-added">+         Owner owner1 = new Owner();</span>
+<span class="diff-added">+         owner1.setId(1);</span>
+<span class="diff-added">+         Owner owner2 = new Owner();</span>
+<span class="diff-added">+         owner2.setId(2);</span>
+<span class="diff-added">+         when(ownerRepository.findByLastName("Doe")).thenReturn(Arrays.asList(owner1, owner2));</span>
+<span class="diff-added">+     </span>
+<span class="diff-added">+         mockMvc.perform(get("/owners")</span>
+<span class="diff-added">+             .param("lastName", "Doe"))</span>
+<span class="diff-added">+             .andExpect(status().isOk())</span>
+<span class="diff-added">+             .andExpect(view().name("owners/ownersList"))</span>
+<span class="diff-added">+             .andExpect(model().attributeExists("selections"));</span>
+<span class="diff-added">+     }</span>
+<span class="diff-added">+ </span>
+<span class="diff-unchanged">  }</span></code></pre>
+                    </details>
+                </td>
+                <td>
+                    <details>
+                        <summary>View More</summary>
+                        <div><strong>STDERR:</strong> <pre><code class="language-java">Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:40: error: cannot find symbol
+        when(ownerRepository.findByLastName("Doe")).thenReturn(Arrays.asList(owner1, owner2));
+        ^
+  symbol:   method when(Collection<Owner>)
+  location: class OwnerControllerTests
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:42: error: cannot find symbol
+        mockMvc.perform(get("/owners")
+                        ^
+  symbol:   method get(String)
+  location: class OwnerControllerTests
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:44: error: cannot find symbol
+            .andExpect(status().isOk())
+                       ^
+  symbol:   method status()
+  location: class OwnerControllerTests
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:45: error: cannot find symbol
+            .andExpect(view().name("owners/ownersList"))
+                       ^
+  symbol:   method view()
+  location: class OwnerControllerTests
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:46: error: cannot find symbol
+            .andExpect(model().attributeExists("selections"));
+                       ^
+  symbol:   method model()
+  location: class OwnerControllerTests
+Note: /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+5 errors
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileTestJava'.
+> Compilation failed; see the compiler output below.
+  Note: Recompile with -Xlint:deprecation for details./var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:40: error: cannot find symbol
+          when(ownerRepository.findByLastName("Doe")).thenReturn(Arrays.asList(owner1, owner2));
+          ^
+    symbol:   method when(Collection<Owner>)
+    location: class OwnerControllerTests
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:42: error: cannot find symbol
+          mockMvc.perform(get("/owners")
+                          ^
+    symbol:   method get(String)
+    location: class OwnerControllerTests
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:44: error: cannot find symbol
+              .andExpect(status().isOk())
+                         ^
+    symbol:   method status()
+    location: class OwnerControllerTests
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:45: error: cannot find symbol
+              .andExpect(view().name("owners/ownersList"))
+                         ^
+    symbol:   method view()
+    location: class OwnerControllerTests
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:46: error: cannot find symbol
+              .andExpect(model().attributeExists("selections"));
+                         ^
+    symbol:   method model()
+    location: class OwnerControllerTestsNote: /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java uses or overrides a deprecated API.
+  5 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights.
+
+BUILD FAILED in 3s
+</code></pre></div>
+                        <div><strong>STDOUT:</strong> <pre><code class="language-java">> Task :clean
+
+> Task :compileJava
+
+> Task :processResources
+> Task :classes
+
+> Task :compileTestJava FAILED
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/Samples/Qodo-Cover/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.12/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+4 actionable tasks: 4 executed
+</code></pre></div>
+                        <div><strong>Test Code:</strong> <pre><code class="language-java">@Test
+public void test_process_find_form_multiple_owners() throws Exception {
+    Owner owner1 = new Owner();
+    owner1.setId(1);
+    Owner owner2 = new Owner();
+    owner2.setId(2);
+    when(ownerRepository.findByLastName("Doe")).thenReturn(Arrays.asList(owner1, owner2));
+
+    mockMvc.perform(get("/owners")
+        .param("lastName", "Doe"))
+        .andExpect(status().isOk())
+        .andExpect(view().name("owners/ownersList"))
+        .andExpect(model().attributeExists("selections"));
+}
+</code></pre></div>
+                        <div><strong>Imports:</strong> <pre><code class="language-java">import java.util.Arrays;
+</code></pre></div>
+                    </details>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="status-FAIL">FAIL</td>
+                <td>Test failed</td>
+                <td>1</td>
+                <td>java</td>
+                <td>
+                    <details>
+                        <summary>View Full Code</summary>
+                        <pre><code><span class="diff-unchanged">  package org.springframework.samples.petclinic.owner;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">  import org.junit.Before;</span>
+<span class="diff-unchanged">  import org.junit.Test;</span>
+<span class="diff-unchanged">  import org.junit.runner.RunWith;</span>
+<span class="diff-unchanged">  import org.mockito.Mock;</span>
+<span class="diff-unchanged">  import org.mockito.MockitoAnnotations;</span>
+<span class="diff-unchanged">  import org.springframework.beans.factory.annotation.Autowired;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.mock.mockito.MockBean;</span>
+<span class="diff-unchanged">  import org.springframework.test.context.junit4.SpringRunner;</span>
+<span class="diff-unchanged">  import org.springframework.test.web.servlet.MockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">  @RunWith(SpringRunner.class)</span>
+<span class="diff-unchanged">  @WebMvcTest(OwnerController.class)</span>
+<span class="diff-unchanged">  public class OwnerControllerTests {</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Autowired</span>
+<span class="diff-unchanged">      private MockMvc mockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @MockBean</span>
+<span class="diff-unchanged">      private OwnerRepository ownerRepository;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Before</span>
+<span class="diff-unchanged">      public void setup() {</span>
+<span class="diff-unchanged">          MockitoAnnotations.initMocks(this);</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Test</span>
+<span class="diff-unchanged">      public void dummyTest() {</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-added">+ </span>
+<span class="diff-added">+     @Test</span>
+<span class="diff-added">+     public void test_show_owner() throws Exception {</span>
+<span class="diff-added">+         Owner owner = new Owner();</span>
+<span class="diff-added">+         owner.setId(1);</span>
+<span class="diff-added">+         when(ownerRepository.findById(1)).thenReturn(owner);</span>
+<span class="diff-added">+     </span>
+<span class="diff-added">+         mockMvc.perform(get("/owners/1"))</span>
+<span class="diff-added">+             .andExpect(status().isOk())</span>
+<span class="diff-added">+             .andExpect(view().name("owners/ownerDetails"))</span>
+<span class="diff-added">+             .andExpect(model().attributeExists("owner"));</span>
+<span class="diff-added">+     }</span>
+<span class="diff-added">+ </span>
+<span class="diff-unchanged">  }</span></code></pre>
+                    </details>
+                </td>
+                <td>
+                    <details>
+                        <summary>View More</summary>
+                        <div><strong>STDERR:</strong> <pre><code class="language-java">Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:37: error: cannot find symbol
+        when(ownerRepository.findById(1)).thenReturn(owner);
+        ^
+  symbol:   method when(Owner)
+  location: class OwnerControllerTests
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:39: error: cannot find symbol
+        mockMvc.perform(get("/owners/1"))
+                        ^
+  symbol:   method get(String)
+  location: class OwnerControllerTests
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:40: error: cannot find symbol
+            .andExpect(status().isOk())
+                       ^
+  symbol:   method status()
+  location: class OwnerControllerTests
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:41: error: cannot find symbol
+            .andExpect(view().name("owners/ownerDetails"))
+                       ^
+  symbol:   method view()
+  location: class OwnerControllerTests
+/var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:42: error: cannot find symbol
+            .andExpect(model().attributeExists("owner"));
+                       ^
+  symbol:   method model()
+  location: class OwnerControllerTests
+Note: /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+5 errors
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileTestJava'.
+> Compilation failed; see the compiler output below.
+  Note: Recompile with -Xlint:deprecation for details./var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:37: error: cannot find symbol
+          when(ownerRepository.findById(1)).thenReturn(owner);
+          ^
+    symbol:   method when(Owner)
+    location: class OwnerControllerTests
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:39: error: cannot find symbol
+          mockMvc.perform(get("/owners/1"))
+                          ^
+    symbol:   method get(String)
+    location: class OwnerControllerTests
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:40: error: cannot find symbol
+              .andExpect(status().isOk())
+                         ^
+    symbol:   method status()
+    location: class OwnerControllerTests
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:41: error: cannot find symbol
+              .andExpect(view().name("owners/ownerDetails"))
+                         ^
+    symbol:   method view()
+    location: class OwnerControllerTests
+  /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java:42: error: cannot find symbol
+              .andExpect(model().attributeExists("owner"));
+                         ^
+    symbol:   method model()
+    location: class OwnerControllerTestsNote: /var/jenkins_home/workspace/Samples/Qodo-Cover/src/test/java/org/springframework/samples/petclinic/owner/OwnerControllerTests.java uses or overrides a deprecated API.
+  5 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights.
+
+BUILD FAILED in 3s
+</code></pre></div>
+                        <div><strong>STDOUT:</strong> <pre><code class="language-java">> Task :clean
+
+> Task :compileJava
+
+> Task :processResources
+> Task :classes
+
+> Task :compileTestJava FAILED
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/Samples/Qodo-Cover/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.12/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+4 actionable tasks: 4 executed
+</code></pre></div>
+                        <div><strong>Test Code:</strong> <pre><code class="language-java">@Test
+public void test_show_owner() throws Exception {
+    Owner owner = new Owner();
+    owner.setId(1);
+    when(ownerRepository.findById(1)).thenReturn(owner);
+
+    mockMvc.perform(get("/owners/1"))
+        .andExpect(status().isOk())
+        .andExpect(view().name("owners/ownerDetails"))
+        .andExpect(model().attributeExists("owner"));
+}
+</code></pre></div>
+                        <div><strong>Imports:</strong> <pre><code class="language-java">""
+</code></pre></div>
+                    </details>
+                </td>
+            </tr>
+            
         </table>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
     </body>
