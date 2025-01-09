@@ -3194,6 +3194,500 @@ public void testShowOwner() throws Exception {
                 </td>
             </tr>
             
+            <tr>
+                <td class="status-FAIL">FAIL</td>
+                <td>Coverage did not increase. Maybe the test did run but did not increase coverage, or maybe the test execution was skipped due to some problem</td>
+                <td>0</td>
+                <td>java</td>
+                <td>
+                    <details>
+                        <summary>View Full Code</summary>
+                        <pre><code><span class="diff-unchanged">  package org.springframework.samples.petclinic.owner;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;</span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;</span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;</span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">  import org.junit.Before;</span>
+<span class="diff-unchanged">  import org.junit.Test;</span>
+<span class="diff-unchanged">  import org.junit.runner.RunWith;</span>
+<span class="diff-unchanged">  import org.springframework.beans.factory.annotation.Autowired;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.mock.mockito.MockBean;</span>
+<span class="diff-unchanged">  import org.springframework.test.context.junit4.SpringRunner;</span>
+<span class="diff-unchanged">  import org.springframework.test.web.servlet.MockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">  /**</span>
+<span class="diff-unchanged">   * Reduced test class for {@link OwnerController}</span>
+<span class="diff-unchanged">   */</span>
+<span class="diff-unchanged">  @RunWith(SpringRunner.class)</span>
+<span class="diff-unchanged">  @WebMvcTest(OwnerController.class)</span>
+<span class="diff-unchanged">  public class OwnerControllerTests {</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      private static final int TEST_OWNER_ID = 1;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Autowired</span>
+<span class="diff-unchanged">      private MockMvc mockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @MockBean</span>
+<span class="diff-unchanged">      private OwnerRepository owners;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Before</span>
+<span class="diff-unchanged">      public void setup() {</span>
+<span class="diff-unchanged">          // Kein Setup für Owner erforderlich</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Test</span>
+<span class="diff-unchanged">      public void testInitCreationForm() throws Exception {</span>
+<span class="diff-unchanged">          mockMvc.perform(get("/owners/new"))</span>
+<span class="diff-unchanged">              .andExpect(status().isOk())</span>
+<span class="diff-unchanged">              .andExpect(view().name("owners/createOrUpdateOwnerForm"));</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Test</span>
+<span class="diff-unchanged">      public void testProcessCreationFormSuccess() throws Exception {</span>
+<span class="diff-unchanged">          mockMvc.perform(post("/owners/new")</span>
+<span class="diff-unchanged">              .param("firstName", "Joe")</span>
+<span class="diff-unchanged">              .param("lastName", "Bloggs")</span>
+<span class="diff-unchanged">              .param("address", "123 Caramel Street")</span>
+<span class="diff-unchanged">              .param("city", "London")</span>
+<span class="diff-unchanged">              .param("telephone", "01316761638")</span>
+<span class="diff-unchanged">          )</span>
+<span class="diff-unchanged">              .andExpect(status().is3xxRedirection());</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-added">+     @Test</span>
+<span class="diff-added">+     public void testProcessCreationFormHasErrors() throws Exception {</span>
+<span class="diff-added">+         mockMvc.perform(post("/owners/new")</span>
+<span class="diff-added">+             .param("firstName", "")  // Invalid input to trigger validation error</span>
+<span class="diff-added">+             .param("lastName", "Bloggs")</span>
+<span class="diff-added">+             .param("address", "123 Caramel Street")</span>
+<span class="diff-added">+             .param("city", "London")</span>
+<span class="diff-added">+             .param("telephone", "01316761638")</span>
+<span class="diff-added">+         )</span>
+<span class="diff-added">+             .andExpect(status().isOk())</span>
+<span class="diff-added">+             .andExpect(view().name("owners/createOrUpdateOwnerForm"));</span>
+<span class="diff-added">+     }</span>
+<span class="diff-added">+ </span>
+<span class="diff-added">+ </span>
+<span class="diff-unchanged">  }</span></code></pre>
+                    </details>
+                </td>
+                <td>
+                    <details>
+                        <summary>View More</summary>
+                        <div><strong>STDERR:</strong> <pre><code class="language-java">Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+</code></pre></div>
+                        <div><strong>STDOUT:</strong> <pre><code class="language-java">> Task :clean
+
+> Task :compileJava
+
+> Task :processResources
+> Task :classes
+> Task :compileTestJava
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+> Task :test
+> Task :jacocoTestReport
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/Samples/Qodo-Cover/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.12/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 25s
+6 actionable tasks: 6 executed
+</code></pre></div>
+                        <div><strong>Test Code:</strong> <pre><code class="language-java">@Test
+public void testProcessCreationFormHasErrors() throws Exception {
+    mockMvc.perform(post("/owners/new")
+        .param("firstName", "")  // Invalid input to trigger validation error
+        .param("lastName", "Bloggs")
+        .param("address", "123 Caramel Street")
+        .param("city", "London")
+        .param("telephone", "01316761638")
+    )
+        .andExpect(status().isOk())
+        .andExpect(view().name("owners/createOrUpdateOwnerForm"));
+}
+</code></pre></div>
+                        <div><strong>Imports:</strong> <pre><code class="language-java">""
+</code></pre></div>
+                    </details>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="status-FAIL">FAIL</td>
+                <td>Coverage did not increase. Maybe the test did run but did not increase coverage, or maybe the test execution was skipped due to some problem</td>
+                <td>0</td>
+                <td>java</td>
+                <td>
+                    <details>
+                        <summary>View Full Code</summary>
+                        <pre><code><span class="diff-unchanged">  package org.springframework.samples.petclinic.owner;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;</span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;</span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;</span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">  import org.junit.Before;</span>
+<span class="diff-unchanged">  import org.junit.Test;</span>
+<span class="diff-unchanged">  import org.junit.runner.RunWith;</span>
+<span class="diff-unchanged">  import org.springframework.beans.factory.annotation.Autowired;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.mock.mockito.MockBean;</span>
+<span class="diff-unchanged">  import org.springframework.test.context.junit4.SpringRunner;</span>
+<span class="diff-unchanged">  import org.springframework.test.web.servlet.MockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">  /**</span>
+<span class="diff-unchanged">   * Reduced test class for {@link OwnerController}</span>
+<span class="diff-unchanged">   */</span>
+<span class="diff-unchanged">  @RunWith(SpringRunner.class)</span>
+<span class="diff-unchanged">  @WebMvcTest(OwnerController.class)</span>
+<span class="diff-unchanged">  public class OwnerControllerTests {</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      private static final int TEST_OWNER_ID = 1;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Autowired</span>
+<span class="diff-unchanged">      private MockMvc mockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @MockBean</span>
+<span class="diff-unchanged">      private OwnerRepository owners;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Before</span>
+<span class="diff-unchanged">      public void setup() {</span>
+<span class="diff-unchanged">          // Kein Setup für Owner erforderlich</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Test</span>
+<span class="diff-unchanged">      public void testInitCreationForm() throws Exception {</span>
+<span class="diff-unchanged">          mockMvc.perform(get("/owners/new"))</span>
+<span class="diff-unchanged">              .andExpect(status().isOk())</span>
+<span class="diff-unchanged">              .andExpect(view().name("owners/createOrUpdateOwnerForm"));</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Test</span>
+<span class="diff-unchanged">      public void testProcessCreationFormSuccess() throws Exception {</span>
+<span class="diff-unchanged">          mockMvc.perform(post("/owners/new")</span>
+<span class="diff-unchanged">              .param("firstName", "Joe")</span>
+<span class="diff-unchanged">              .param("lastName", "Bloggs")</span>
+<span class="diff-unchanged">              .param("address", "123 Caramel Street")</span>
+<span class="diff-unchanged">              .param("city", "London")</span>
+<span class="diff-unchanged">              .param("telephone", "01316761638")</span>
+<span class="diff-unchanged">          )</span>
+<span class="diff-unchanged">              .andExpect(status().is3xxRedirection());</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-added">+     @Test</span>
+<span class="diff-added">+     public void testInitFindForm() throws Exception {</span>
+<span class="diff-added">+         mockMvc.perform(get("/owners/find"))</span>
+<span class="diff-added">+             .andExpect(status().isOk())</span>
+<span class="diff-added">+             .andExpect(view().name("owners/findOwners"));</span>
+<span class="diff-added">+     }</span>
+<span class="diff-added">+ </span>
+<span class="diff-added">+ </span>
+<span class="diff-unchanged">  }</span></code></pre>
+                    </details>
+                </td>
+                <td>
+                    <details>
+                        <summary>View More</summary>
+                        <div><strong>STDERR:</strong> <pre><code class="language-java">Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+</code></pre></div>
+                        <div><strong>STDOUT:</strong> <pre><code class="language-java">> Task :clean
+
+> Task :compileJava
+
+> Task :processResources
+> Task :classes
+> Task :compileTestJava
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+> Task :test
+> Task :jacocoTestReport
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/Samples/Qodo-Cover/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.12/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 24s
+6 actionable tasks: 6 executed
+</code></pre></div>
+                        <div><strong>Test Code:</strong> <pre><code class="language-java">@Test
+public void testInitFindForm() throws Exception {
+    mockMvc.perform(get("/owners/find"))
+        .andExpect(status().isOk())
+        .andExpect(view().name("owners/findOwners"));
+}
+</code></pre></div>
+                        <div><strong>Imports:</strong> <pre><code class="language-java">""
+</code></pre></div>
+                    </details>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="status-FAIL">FAIL</td>
+                <td>Coverage did not increase. Maybe the test did run but did not increase coverage, or maybe the test execution was skipped due to some problem</td>
+                <td>0</td>
+                <td>java</td>
+                <td>
+                    <details>
+                        <summary>View Full Code</summary>
+                        <pre><code><span class="diff-unchanged">  package org.springframework.samples.petclinic.owner;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;</span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;</span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;</span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">  import org.junit.Before;</span>
+<span class="diff-unchanged">  import org.junit.Test;</span>
+<span class="diff-unchanged">  import org.junit.runner.RunWith;</span>
+<span class="diff-unchanged">  import org.springframework.beans.factory.annotation.Autowired;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.mock.mockito.MockBean;</span>
+<span class="diff-unchanged">  import org.springframework.test.context.junit4.SpringRunner;</span>
+<span class="diff-unchanged">  import org.springframework.test.web.servlet.MockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-added">+ import static org.mockito.Mockito.when;</span>
+<span class="diff-added">+ import java.util.Collections;</span>
+<span class="diff-unchanged">  /**</span>
+<span class="diff-unchanged">   * Reduced test class for {@link OwnerController}</span>
+<span class="diff-unchanged">   */</span>
+<span class="diff-unchanged">  @RunWith(SpringRunner.class)</span>
+<span class="diff-unchanged">  @WebMvcTest(OwnerController.class)</span>
+<span class="diff-unchanged">  public class OwnerControllerTests {</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      private static final int TEST_OWNER_ID = 1;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Autowired</span>
+<span class="diff-unchanged">      private MockMvc mockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @MockBean</span>
+<span class="diff-unchanged">      private OwnerRepository owners;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Before</span>
+<span class="diff-unchanged">      public void setup() {</span>
+<span class="diff-unchanged">          // Kein Setup für Owner erforderlich</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Test</span>
+<span class="diff-unchanged">      public void testInitCreationForm() throws Exception {</span>
+<span class="diff-unchanged">          mockMvc.perform(get("/owners/new"))</span>
+<span class="diff-unchanged">              .andExpect(status().isOk())</span>
+<span class="diff-unchanged">              .andExpect(view().name("owners/createOrUpdateOwnerForm"));</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Test</span>
+<span class="diff-unchanged">      public void testProcessCreationFormSuccess() throws Exception {</span>
+<span class="diff-unchanged">          mockMvc.perform(post("/owners/new")</span>
+<span class="diff-unchanged">              .param("firstName", "Joe")</span>
+<span class="diff-unchanged">              .param("lastName", "Bloggs")</span>
+<span class="diff-unchanged">              .param("address", "123 Caramel Street")</span>
+<span class="diff-unchanged">              .param("city", "London")</span>
+<span class="diff-unchanged">              .param("telephone", "01316761638")</span>
+<span class="diff-unchanged">          )</span>
+<span class="diff-unchanged">              .andExpect(status().is3xxRedirection());</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-added">+     @Test</span>
+<span class="diff-added">+     public void testProcessFindFormNoOwnersFound() throws Exception {</span>
+<span class="diff-added">+         when(owners.findByLastName("Unknown")).thenReturn(Collections.emptyList());</span>
+<span class="diff-added">+         </span>
+<span class="diff-added">+         mockMvc.perform(get("/owners")</span>
+<span class="diff-added">+             .param("lastName", "Unknown"))</span>
+<span class="diff-added">+             .andExpect(status().isOk())</span>
+<span class="diff-added">+             .andExpect(view().name("owners/findOwners"));</span>
+<span class="diff-added">+     }</span>
+<span class="diff-added">+ </span>
+<span class="diff-added">+ </span>
+<span class="diff-unchanged">  }</span></code></pre>
+                    </details>
+                </td>
+                <td>
+                    <details>
+                        <summary>View More</summary>
+                        <div><strong>STDERR:</strong> <pre><code class="language-java">Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+</code></pre></div>
+                        <div><strong>STDOUT:</strong> <pre><code class="language-java">> Task :clean
+
+> Task :compileJava
+
+> Task :processResources
+> Task :classes
+> Task :compileTestJava
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+> Task :test
+> Task :jacocoTestReport
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/Samples/Qodo-Cover/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.12/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 23s
+6 actionable tasks: 6 executed
+</code></pre></div>
+                        <div><strong>Test Code:</strong> <pre><code class="language-java">@Test
+public void testProcessFindFormNoOwnersFound() throws Exception {
+    when(owners.findByLastName("Unknown")).thenReturn(Collections.emptyList());
+    
+    mockMvc.perform(get("/owners")
+        .param("lastName", "Unknown"))
+        .andExpect(status().isOk())
+        .andExpect(view().name("owners/findOwners"));
+}
+</code></pre></div>
+                        <div><strong>Imports:</strong> <pre><code class="language-java">import static org.mockito.Mockito.when;
+import java.util.Collections;
+</code></pre></div>
+                    </details>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="status-FAIL">FAIL</td>
+                <td>Coverage did not increase. Maybe the test did run but did not increase coverage, or maybe the test execution was skipped due to some problem</td>
+                <td>0</td>
+                <td>java</td>
+                <td>
+                    <details>
+                        <summary>View Full Code</summary>
+                        <pre><code><span class="diff-unchanged">  package org.springframework.samples.petclinic.owner;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;</span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;</span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;</span>
+<span class="diff-unchanged">  import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">  import org.junit.Before;</span>
+<span class="diff-unchanged">  import org.junit.Test;</span>
+<span class="diff-unchanged">  import org.junit.runner.RunWith;</span>
+<span class="diff-unchanged">  import org.springframework.beans.factory.annotation.Autowired;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;</span>
+<span class="diff-unchanged">  import org.springframework.boot.test.mock.mockito.MockBean;</span>
+<span class="diff-unchanged">  import org.springframework.test.context.junit4.SpringRunner;</span>
+<span class="diff-unchanged">  import org.springframework.test.web.servlet.MockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-added">+ import static org.mockito.Mockito.when;</span>
+<span class="diff-unchanged">  /**</span>
+<span class="diff-unchanged">   * Reduced test class for {@link OwnerController}</span>
+<span class="diff-unchanged">   */</span>
+<span class="diff-unchanged">  @RunWith(SpringRunner.class)</span>
+<span class="diff-unchanged">  @WebMvcTest(OwnerController.class)</span>
+<span class="diff-unchanged">  public class OwnerControllerTests {</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      private static final int TEST_OWNER_ID = 1;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Autowired</span>
+<span class="diff-unchanged">      private MockMvc mockMvc;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @MockBean</span>
+<span class="diff-unchanged">      private OwnerRepository owners;</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Before</span>
+<span class="diff-unchanged">      public void setup() {</span>
+<span class="diff-unchanged">          // Kein Setup für Owner erforderlich</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Test</span>
+<span class="diff-unchanged">      public void testInitCreationForm() throws Exception {</span>
+<span class="diff-unchanged">          mockMvc.perform(get("/owners/new"))</span>
+<span class="diff-unchanged">              .andExpect(status().isOk())</span>
+<span class="diff-unchanged">              .andExpect(view().name("owners/createOrUpdateOwnerForm"));</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-unchanged">      @Test</span>
+<span class="diff-unchanged">      public void testProcessCreationFormSuccess() throws Exception {</span>
+<span class="diff-unchanged">          mockMvc.perform(post("/owners/new")</span>
+<span class="diff-unchanged">              .param("firstName", "Joe")</span>
+<span class="diff-unchanged">              .param("lastName", "Bloggs")</span>
+<span class="diff-unchanged">              .param("address", "123 Caramel Street")</span>
+<span class="diff-unchanged">              .param("city", "London")</span>
+<span class="diff-unchanged">              .param("telephone", "01316761638")</span>
+<span class="diff-unchanged">          )</span>
+<span class="diff-unchanged">              .andExpect(status().is3xxRedirection());</span>
+<span class="diff-unchanged">      }</span>
+<span class="diff-unchanged">  </span>
+<span class="diff-added">+     @Test</span>
+<span class="diff-added">+     public void testShowOwner() throws Exception {</span>
+<span class="diff-added">+         Owner owner = new Owner();</span>
+<span class="diff-added">+         owner.setId(TEST_OWNER_ID);</span>
+<span class="diff-added">+         when(owners.findById(TEST_OWNER_ID)).thenReturn(owner);</span>
+<span class="diff-added">+     </span>
+<span class="diff-added">+         mockMvc.perform(get("/owners/{ownerId}", TEST_OWNER_ID))</span>
+<span class="diff-added">+             .andExpect(status().isOk())</span>
+<span class="diff-added">+             .andExpect(view().name("owners/ownerDetails"));</span>
+<span class="diff-added">+     }</span>
+<span class="diff-added">+ </span>
+<span class="diff-added">+ </span>
+<span class="diff-unchanged">  }</span></code></pre>
+                    </details>
+                </td>
+                <td>
+                    <details>
+                        <summary>View More</summary>
+                        <div><strong>STDERR:</strong> <pre><code class="language-java">Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+</code></pre></div>
+                        <div><strong>STDOUT:</strong> <pre><code class="language-java">> Task :clean
+
+> Task :compileJava
+
+> Task :processResources
+> Task :classes
+> Task :compileTestJava
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+> Task :test
+> Task :jacocoTestReport
+
+[Incubating] Problems report is available at: file:///var/jenkins_home/workspace/Samples/Qodo-Cover/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.12/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 24s
+6 actionable tasks: 6 executed
+</code></pre></div>
+                        <div><strong>Test Code:</strong> <pre><code class="language-java">@Test
+public void testShowOwner() throws Exception {
+    Owner owner = new Owner();
+    owner.setId(TEST_OWNER_ID);
+    when(owners.findById(TEST_OWNER_ID)).thenReturn(owner);
+
+    mockMvc.perform(get("/owners/{ownerId}", TEST_OWNER_ID))
+        .andExpect(status().isOk())
+        .andExpect(view().name("owners/ownerDetails"));
+}
+</code></pre></div>
+                        <div><strong>Imports:</strong> <pre><code class="language-java">import static org.mockito.Mockito.when;
+</code></pre></div>
+                    </details>
+                </td>
+            </tr>
+            
         </table>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
     </body>
